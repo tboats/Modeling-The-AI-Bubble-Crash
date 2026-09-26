@@ -56,6 +56,7 @@ Build a rigorous, first-principles economic and financial model simulating the i
 
 ## Links
 
+- GitHub: [Modeling-The-AI-Bubble-Crash](https://github.com/tboats/Modeling-The-AI-Bubble-Crash)
 - Backlog: `artifacts/tasks/backlog.md`
 - Active Plan: `artifacts/plans/v1.0.0-2026-09-26-ai-bubble-burst-model.md`
 - Sessions: `sessions/`
