@@ -1,0 +1,53 @@
+{
+  "as_of_date": "2026-09-26",
+  "index_benchmark": {
+    "name": "S&P 500 Index",
+    "base_level": 5750.0,
+    "base_aggregate_eps": 245.0,
+    "base_aggregate_pe": 23.47
+  },
+  "cohorts": [
+    {
+      "id": "cohort_1_silicon_enablers",
+      "name": "Cohort 1: AI Enablers & Silicon",
+      "key_constituents": ["NVDA", "AVGO", "TSM (proxy)", "AMD", "ASML", "AMAT", "LRCX", "MU"],
+      "index_weight": 0.140,
+      "base_forward_pe": 38.5,
+      "trough_pe": 16.0,
+      "operating_leverage_multiplier": 1.35,
+      "fixed_cost_share": 0.45,
+      "narrative": "Subject to the semiconductor bullwhip effect. Highly vulnerable to cancellation of forward GPU purchase orders."
+    },
+    {
+      "id": "cohort_2_hyperscalers",
+      "name": "Cohort 2: Hyperscalers & Mega-Cap Tech",
+      "key_constituents": ["MSFT", "GOOGL", "AMZN", "META", "AAPL"],
+      "index_weight": 0.250,
+      "base_forward_pe": 31.0,
+      "trough_pe": 19.0,
+      "margin_compression_bps_per_10pct_capex_cut": 130.0,
+      "baseline_operating_margin": 0.36,
+      "narrative": "Faces margin compression from depreciating past hardware clusters and decelerating cloud growth."
+    },
+    {
+      "id": "cohort_3_power_infrastructure",
+      "name": "Cohort 3: Power, Utilities & Data Center REITs",
+      "key_constituents": ["VST", "CEG", "DLR", "EQIX", "ETN", "GEV"],
+      "index_weight": 0.045,
+      "base_forward_pe": 27.0,
+      "trough_pe": 15.5,
+      "eps_haircut_per_10pct_capex_cut": 0.035,
+      "narrative": "Reversion from AI compounder valuations back to traditional capital-intensive utility yield multiples."
+    },
+    {
+      "id": "cohort_4_broader_market",
+      "name": "Cohort 4: Broader S&P 480 (Non-Tech/Cyclicals)",
+      "key_constituents": ["Financials", "Healthcare", "Industrials", "Consumer", "Energy"],
+      "index_weight": 0.565,
+      "base_forward_pe": 18.5,
+      "trough_pe": 15.0,
+      "wealth_effect_drag_ratio": 0.04,
+      "narrative": "Second-order macro drag caused by negative wealth effect, corporate IT budget freezes, and bank credit contraction."
+    }
+  ]
+}

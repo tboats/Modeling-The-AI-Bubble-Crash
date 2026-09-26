@@ -1,0 +1,41 @@
+{
+  "currency": "USD",
+  "historical_and_projected_capex": {
+    "2024": {
+      "microsoft": 55700000000,
+      "alphabet": 51400000000,
+      "amazon": 76000000000,
+      "meta": 39000000000,
+      "big4_total": 222100000000,
+      "global_ai_capex": 290000000000
+    },
+    "2025": {
+      "microsoft": 88000000000,
+      "alphabet": 82000000000,
+      "amazon": 135000000000,
+      "meta": 72000000000,
+      "big4_total": 377000000000,
+      "global_ai_capex": 510000000000
+    },
+    "2026": {
+      "microsoft": 182000000000,
+      "alphabet": 188000000000,
+      "amazon": 205000000000,
+      "meta": 135000000000,
+      "big4_total": 710000000000,
+      "global_ai_capex": 1050000000000
+    }
+  },
+  "economic_assumptions": {
+    "hardware_useful_life_years": 4.0,
+    "hardware_share_of_capex": 0.65,
+    "facilities_share_of_capex": 0.35,
+    "annual_power_and_cooling_opex_ratio": 0.10,
+    "enterprise_software_capture_ratio_default": 0.18,
+    "subprime_mortgage_comparison": {
+      "subprime_peak_issuance_2004_2007_total": 1350000000000,
+      "ai_capex_2024_2026_three_year_total": 1850000000000,
+      "comment": "Three-year AI infrastructure spending ($1.85T) exceeds total subprime mortgage volume ($1.35T) leading into the 2008 Great Financial Crisis."
+    }
+  }
+}

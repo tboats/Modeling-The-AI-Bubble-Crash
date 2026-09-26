@@ -1,0 +1,56 @@
+{
+  "currency": "USD",
+  "as_of_date": "2026-09-26",
+  "channels": {
+    "channel_1_gpu_neocloud_debt": {
+      "name": "Neo-Cloud GPU Delayed Draw Term Loans (DDTL) & ABS",
+      "total_principal": 68000000000,
+      "major_borrowers": ["CoreWeave ($35B)", "Crusoe Energy ($14B)", "Lambda Labs ($11B)", "Applied Digital ($8B)"],
+      "collateral_type": "NVIDIA H100/H200/Blackwell GPU fleets & take-or-pay customer contracts",
+      "original_ltv": 0.70,
+      "senior_lenders": ["Private Credit Syndicates", "Tier-1 Investment Banks (Arrangers)"],
+      "bank_direct_exposure_share": 0.28,
+      "shadow_bank_private_credit_share": 0.72
+    },
+    "channel_2_bank_private_credit_leverage": {
+      "name": "Bank Subscription Lines & NAV Facilities to Private Debt Funds",
+      "total_principal": 220000000000,
+      "description": "Senior secured credit facilities extended by commercial banks to private credit managers investing in AI infrastructure.",
+      "major_sponsors": ["Blackstone Infrastructure", "Magnetar Capital", "Coatue", "Blue Owl", "Carlyle"],
+      "lending_banks": ["JPMorgan Chase", "Goldman Sachs", "Morgan Stanley", "Citigroup", "Wells Fargo", "MUFG"],
+      "bank_direct_exposure_share": 1.00,
+      "shadow_bank_private_credit_share": 0.00
+    },
+    "channel_3_bank_warehouse_bridge_loans": {
+      "name": "Wall Street Arranger Bridge Facilities & Syndication Warehouses",
+      "total_principal": 55000000000,
+      "description": "Short-term bridge financing and unplaced tranches of data center debt held directly on bank trading books.",
+      "bank_direct_exposure_share": 1.00,
+      "shadow_bank_private_credit_share": 0.00
+    },
+    "channel_4_datacenter_cre_cmbs": {
+      "name": "Data Center Commercial Real Estate Mortgages & CMBS",
+      "total_principal": 145000000000,
+      "description": "Construction loans, syndicated term loans, and commercial mortgage-backed securities for physical data center shells.",
+      "major_borrowers": ["Digital Realty", "QTS Data Centers", "CyrusOne", "Equinix"],
+      "bank_direct_exposure_share": 0.45,
+      "shadow_bank_private_credit_share": 0.55
+    },
+    "channel_5_utility_grid_capex_debt": {
+      "name": "Regulated Utility Corporate Bonds & Bank Credit Lines",
+      "total_principal": 180000000000,
+      "description": "Utility bonds and bank liquidity facilities funding power generation (nuclear, gas, renewables) and high-voltage transmission lines for AI loads.",
+      "major_issuers": ["Constellation Energy", "Vistra Corp", "NextEra Energy", "Southern Company"],
+      "bank_direct_exposure_share": 0.35,
+      "shadow_bank_private_credit_share": 0.65
+    }
+  },
+  "commercial_banking_system_baseline": {
+    "institution_scope": "Top 5 US Bank Holding Companies (JPM, BAC, C, WFC, GS)",
+    "total_cet1_capital": 950000000000,
+    "total_risk_weighted_assets": 7800000000000,
+    "baseline_cet1_ratio": 0.1218,
+    "regulatory_minimum_cet1_threshold": 0.1050,
+    "credit_contraction_multiplier": 10.0
+  }
+}

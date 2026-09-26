@@ -1,0 +1,238 @@
+{
+  "benchmark_year": 2026,
+  "source": "US Bureau of Labor Statistics (BLS) Occupational Employment and Wage Statistics (OEWS) & Current Population Survey",
+  "loaded_cost_multiplier": 1.25,
+  "occupations": [
+    {
+      "id": "software_engineering",
+      "title": "Software Engineering, DevOps & QA",
+      "bls_codes": ["15-1252", "15-1250"],
+      "total_headcount": 4500000,
+      "description": "Software developers, systems architects, QA automation engineers, and database administrators.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.40,
+          "share_of_payroll": 0.25,
+          "avg_base_salary": 95000,
+          "fully_loaded_cost": 118750,
+          "default_displacement_pct": 0.22,
+          "exposure_profile": "Routine CRUD development, standard boilerplate, unit test writing, basic bug remediation."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.35,
+          "avg_base_salary": 135000,
+          "fully_loaded_cost": 168750,
+          "default_displacement_pct": 0.12,
+          "exposure_profile": "Feature development, integration testing, API design, code refactoring."
+        },
+        "senior": {
+          "share_of_headcount": 0.25,
+          "share_of_payroll": 0.40,
+          "avg_base_salary": 190000,
+          "fully_loaded_cost": 237500,
+          "default_displacement_pct": 0.02,
+          "exposure_profile": "Distributed system architecture, security auditing, cross-service reliability, production incident response."
+        }
+      }
+    },
+    {
+      "id": "legal_services",
+      "title": "Legal Services & Compliance",
+      "bls_codes": ["23-1011", "23-2011"],
+      "total_headcount": 1350000,
+      "description": "Attorneys, judicial law clerks, paralegals, and legal assistants.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.42,
+          "share_of_payroll": 0.24,
+          "avg_base_salary": 72000,
+          "fully_loaded_cost": 90000,
+          "default_displacement_pct": 0.25,
+          "exposure_profile": "Document discovery, deposition summarization, contract template parsing, cite checking."
+        },
+        "mid": {
+          "share_of_headcount": 0.33,
+          "share_of_payroll": 0.34,
+          "avg_base_salary": 125000,
+          "fully_loaded_cost": 156250,
+          "default_displacement_pct": 0.10,
+          "exposure_profile": "Standard litigation briefs, commercial contract drafting, regulatory filing preparation."
+        },
+        "senior": {
+          "share_of_headcount": 0.25,
+          "share_of_payroll": 0.42,
+          "avg_base_salary": 220000,
+          "fully_loaded_cost": 275000,
+          "default_displacement_pct": 0.01,
+          "exposure_profile": "Trial advocacy, high-stakes negotiation, regulatory enforcement defense, partner-level fiduciary liability."
+        }
+      }
+    },
+    {
+      "id": "finance_accounting",
+      "title": "Finance, Accounting & Auditing",
+      "bls_codes": ["13-2011", "13-2051", "43-3031"],
+      "total_headcount": 3200000,
+      "description": "Financial analysts, accountants, auditors, bookkeepers, and credit specialists.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.40,
+          "share_of_payroll": 0.26,
+          "avg_base_salary": 65000,
+          "fully_loaded_cost": 81250,
+          "default_displacement_pct": 0.20,
+          "exposure_profile": "Accounts reconciliation, data ledger entry, standard variance reporting, junior audit checklists."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.36,
+          "avg_base_salary": 105000,
+          "fully_loaded_cost": 131250,
+          "default_displacement_pct": 0.08,
+          "exposure_profile": "Financial modeling, tax compliance filing, internal controls assessment, divisional forecasting."
+        },
+        "senior": {
+          "share_of_headcount": 0.25,
+          "share_of_payroll": 0.38,
+          "avg_base_salary": 170000,
+          "fully_loaded_cost": 212500,
+          "default_displacement_pct": 0.01,
+          "exposure_profile": "Capital structure allocation, treasury management, complex M&A underwriting, audit opinion sign-off."
+        }
+      }
+    },
+    {
+      "id": "customer_support",
+      "title": "Customer Support & Contact Center Operations",
+      "bls_codes": ["43-4051"],
+      "total_headcount": 2800000,
+      "description": "Customer service representatives, helpdesk operators, and contact center agents.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.50,
+          "share_of_payroll": 0.40,
+          "avg_base_salary": 38000,
+          "fully_loaded_cost": 47500,
+          "default_displacement_pct": 0.35,
+          "exposure_profile": "Tier-1 ticket routing, knowledge base lookup, order tracking inquiries, password resets."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.40,
+          "avg_base_salary": 52000,
+          "fully_loaded_cost": 65000,
+          "default_displacement_pct": 0.15,
+          "exposure_profile": "Tier-2 technical troubleshooting, billing dispute resolution, customer retention calls."
+        },
+        "senior": {
+          "share_of_headcount": 0.15,
+          "share_of_payroll": 0.20,
+          "avg_base_salary": 78000,
+          "fully_loaded_cost": 97500,
+          "default_displacement_pct": 0.03,
+          "exposure_profile": "High-value VIP enterprise escalation, customer success relationship management, team leadership."
+        }
+      }
+    },
+    {
+      "id": "marketing_creative",
+      "title": "Marketing, Copywriting, Design & Localization",
+      "bls_codes": ["13-1161", "27-3000", "27-1024"],
+      "total_headcount": 1600000,
+      "description": "Marketing specialists, copywriters, graphic designers, technical writers, and translators.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.45,
+          "share_of_payroll": 0.30,
+          "avg_base_salary": 55000,
+          "fully_loaded_cost": 68750,
+          "default_displacement_pct": 0.28,
+          "exposure_profile": "SEO article writing, social media blurbs, stock graphic formatting, routine translation."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.40,
+          "avg_base_salary": 85000,
+          "fully_loaded_cost": 106250,
+          "default_displacement_pct": 0.12,
+          "exposure_profile": "Campaign copywriting, digital ad performance optimization, UI asset creation."
+        },
+        "senior": {
+          "share_of_headcount": 0.20,
+          "share_of_payroll": 0.30,
+          "avg_base_salary": 140000,
+          "fully_loaded_cost": 175000,
+          "default_displacement_pct": 0.02,
+          "exposure_profile": "Brand identity, creative direction, high-profile product launch narrative, strategic market positioning."
+        }
+      }
+    },
+    {
+      "id": "consulting_analytics",
+      "title": "Management Consulting & Market Research Analysts",
+      "bls_codes": ["13-1111", "19-3022"],
+      "total_headcount": 1150000,
+      "description": "Management consultants, strategy analysts, and market research specialists.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.42,
+          "share_of_payroll": 0.28,
+          "avg_base_salary": 85000,
+          "fully_loaded_cost": 106250,
+          "default_displacement_pct": 0.22,
+          "exposure_profile": "Competitive landscape synthesis, slide deck formatting, survey data cleaning, secondary research."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.37,
+          "avg_base_salary": 130000,
+          "fully_loaded_cost": 162500,
+          "default_displacement_pct": 0.10,
+          "exposure_profile": "Commercial due diligence workstreams, organizational redesign analysis, client interview synthesis."
+        },
+        "senior": {
+          "share_of_headcount": 0.23,
+          "share_of_payroll": 0.35,
+          "avg_base_salary": 210000,
+          "fully_loaded_cost": 262500,
+          "default_displacement_pct": 0.01,
+          "exposure_profile": "C-suite strategic counsel, client board presentations, deal sourcing, partner-level account ownership."
+        }
+      }
+    },
+    {
+      "id": "administrative_clerks",
+      "title": "Administrative Support & Executive Assistants",
+      "bls_codes": ["43-6011", "43-6014", "43-9021"],
+      "total_headcount": 3400000,
+      "description": "Executive secretaries, administrative assistants, medical secretaries, and data entry keyers.",
+      "tiers": {
+        "junior": {
+          "share_of_headcount": 0.45,
+          "share_of_payroll": 0.35,
+          "avg_base_salary": 40000,
+          "fully_loaded_cost": 50000,
+          "default_displacement_pct": 0.25,
+          "exposure_profile": "Calendar scheduling, email draft filtering, expense report entry, data transcription."
+        },
+        "mid": {
+          "share_of_headcount": 0.35,
+          "share_of_payroll": 0.40,
+          "avg_base_salary": 55000,
+          "fully_loaded_cost": 68750,
+          "default_displacement_pct": 0.12,
+          "exposure_profile": "Travel itinerary coordination, vendor invoice reconciliation, department logistics."
+        },
+        "senior": {
+          "share_of_headcount": 0.20,
+          "share_of_payroll": 0.25,
+          "avg_base_salary": 80000,
+          "fully_loaded_cost": 100000,
+          "default_displacement_pct": 0.02,
+          "exposure_profile": "Confidential C-suite gatekeeping, board of directors meeting execution, executive chief-of-staff coordination."
+        }
+      }
+    }
+  ]
+}
