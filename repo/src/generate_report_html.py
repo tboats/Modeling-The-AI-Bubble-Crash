@@ -395,6 +395,9 @@ def generate_full_html_report():
 
         <div class="chart-container hero-chart" style="margin-bottom: 20px;">
             <h3>Historical Bubble Burst Comparison: S&P 500 Peak-to-Trough Trajectory</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin: -6px 0 10px 0;">
+                Drawdown progression indexed from cycle peak (Month 0) through post-peak months (Month 3 = 3 months in, Month 6, etc.) to cyclical trough.
+            </p>
             <div class="chart-wrapper">
                 <canvas id="historicalComparisonChart"></canvas>
             </div>
@@ -856,7 +859,16 @@ def generate_full_html_report():
         new Chart(document.getElementById('historicalComparisonChart'), {{
             type: 'line',
             data: {{
-                labels: ['Peak', 'M+3', 'M+6', 'M+9', 'M+12', 'M+15', 'M+18', 'Trough'],
+                labels: [
+                    'Peak (Month 0)', 
+                    'Month 3', 
+                    'Month 6', 
+                    'Month 9', 
+                    'Month 12', 
+                    'Month 15', 
+                    'Month 18', 
+                    'Trough (~Month 20)'
+                ],
                 datasets: [
                     {{
                         label: '2026 AI Bubble Burst Model (Base: -40.1%)',
@@ -894,8 +906,17 @@ def generate_full_html_report():
                     legend: {{ position: 'bottom', labels: {{ color: '#94a3b8', font: {{ size: 11 }} }} }}
                 }},
                 scales: {{
-                    y: {{ max: 0, min: -65, grid: {{ color: '#2e3a52' }}, ticks: {{ color: '#94a3b8' }} }},
-                    x: {{ ticks: {{ color: '#94a3b8' }} }}
+                    y: {{ 
+                        max: 0, 
+                        min: -65, 
+                        title: {{ display: true, text: 'S&P 500 Drawdown (%)', color: '#94a3b8', font: {{ size: 11 }} }},
+                        grid: {{ color: '#2e3a52' }}, 
+                        ticks: {{ color: '#94a3b8' }} 
+                    }},
+                    x: {{ 
+                        title: {{ display: true, text: 'Timeline (Months Elapsed from Market Peak)', color: '#94a3b8', font: {{ size: 11 }} }},
+                        ticks: {{ color: '#94a3b8' }} 
+                    }}
                 }}
             }}
         }});
@@ -1020,14 +1041,14 @@ def generate_full_html_report():
 
     dash_path = SRC_DIR / "dashboard.html"
     docs_path = SRC_DIR.parent.parent / "docs" / "ai_bubble_burst_report.html"
+    docs_index_path = SRC_DIR.parent.parent / "docs" / "index.html"
+    root_index_path = SRC_DIR.parent.parent / "index.html"
 
-    with open(dash_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    for path in [dash_path, docs_path, docs_index_path, root_index_path]:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(html_content)
 
-    with open(docs_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
-
-    print(f"Refreshed HTML report successfully at:\n- {dash_path}\n- {docs_path}")
+    print(f"Refreshed HTML report successfully at:\n- {dash_path}\n- {docs_path}\n- {docs_index_path}\n- {root_index_path}")
 
 
 if __name__ == "__main__":
