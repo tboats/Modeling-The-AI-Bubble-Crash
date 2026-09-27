@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bubble Burst: Macroeconomic & Financial System Simulation Report</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #121826;
+            --bg-card: #1a2234;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
+            --accent-purple: #a855f7;
+            --border-color: #2e3a52;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1350px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border: 1px solid #3730a3;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header p.subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 1000px;
+        }
+        .meta-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            padding: 5px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+        }
+        .badge.critical { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.4); }
+        .badge.warning { background: rgba(249, 115, 22, 0.15); color: #fdba74; border-color: rgba(249, 115, 22, 0.4); }
+        .badge.info { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border-color: rgba(56, 189, 248, 0.4); }
+
+        /* TL;DR Executive Summary Box */
+        .tldr-box {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid #818cf8;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(129, 140, 248, 0.15);
+        }
+        .tldr-box h2 {
+            color: #a5b4fc;
+            font-size: 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .tldr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .tldr-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .tldr-item h3 {
+            font-size: 0.95rem;
+            color: #38bdf8;
+            margin-bottom: 6px;
+        }
+        .tldr-item p {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .kpi-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .kpi-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .kpi-card .subtext {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .value.red { color: var(--accent-red); }
+        .value.orange { color: var(--accent-orange); }
+        .value.blue { color: var(--accent-blue); }
+        .value.purple { color: var(--accent-purple); }
+
+        /* Section Layouts */
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 26px;
+            margin-bottom: 26px;
+        }
+        .section h2 {
+            font-size: 1.45rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section p.desc {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            max-width: 1050px;
+        }
+
+        /* Sized Chart Containers to fit on screen */
+        .chart-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .chart-row { grid-template-columns: 1fr; }
+        }
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            position: relative;
+            height: 310px; /* Constrained height */
+            display: flex;
+            flex-direction: column;
+        }
+        .chart-container.hero-chart {
+            height: 360px; /* Hero chart slightly larger */
+        }
+        .chart-container h3 {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: #e2e8f0;
+            flex-shrink: 0;
+        }
+        .chart-wrapper {
+            position: relative;
+            flex-grow: 1;
+            width: 100%;
+            height: calc(100% - 30px);
+        }
+
+        /* Interactive Simulator Panel */
+        .simulator-panel {
+            background: linear-gradient(145deg, #131b2e 0%, #171f33 100%);
+            border: 2px solid #38bdf8;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 26px;
+            box-shadow: 0 0 20px -5px rgba(56, 189, 248, 0.2);
+        }
+        .simulator-panel h2 {
+            color: #38bdf8;
+            font-size: 1.35rem;
+            margin-bottom: 4px;
+        }
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            margin: 18px 0;
+        }
+        .control-group {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 5px;
+            background: #2e3a52;
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.88rem;
+        }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .align-right { text-align: right; }
+
+        .callout {
+            border-left: 4px solid var(--accent-blue);
+            background: rgba(56, 189, 248, 0.08);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+        .callout.danger {
+            border-left-color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.08);
+        }
+        .callout.success {
+            border-left-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.08);
+        }
+        .callout h4 {
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+        .callout p {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>The Anatomy of an AI Bubble Burst</h1>
+        <p class="subtitle">
+            A First-Principles Macroeconomic & Financial System Simulation: White-Collar Labor Displacement Limits, the $710B CapEx Payback Deficit, Banking Contagion Channels, and S&P 500 Waterfall Drawdown.
+        </p>
+        <div class="meta-badges">
+            <span class="badge critical">Base Crash: -40.1% S&P 500 Drawdown</span>
+            <span class="badge warning">Big-4 Net Carrying Deficit: -$163.1B/yr</span>
+            <span class="badge info">At-Risk Debt Stack: $668B</span>
+            <span class="badge">Model Horizon: 2026-2028</span>
+        </div>
+    </header>
+
+    <!-- TL;DR EXECUTIVE SUMMARY -->
+    <div class="tldr-box">
+        <h2>⚡ Executive Summary (TL;DR)</h2>
+        <p style="font-size: 0.95rem; color: #cbd5e1;">
+            We modeled the economic and financial shock if generative AI replacement tops out at <strong>5–10% of overall knowledge workers</strong> (~20% junior/mid-level in technical and professional services, 0% senior/partner level due to legal accountability and fiduciary liability).
+        </p>
+        <div class="tldr-grid">
+            <div class="tldr-item">
+                <h3>1. The Labor Monetization Trap</h3>
+                <p>Displacing 20% of junior/mid knowledge workers yields <strong>~$221B in annual wage savings</strong>. At historical IT capture rates (18%), AI software vendors capture only <strong>~$40B/year</strong>.</p>
+            </div>
+            <div class="tldr-item">
+                <h3>2. The CapEx Payback Deficit</h3>
+                <p>Big-4 hyperscalers are spending <strong>$710B/year</strong> in 2026. Rapid 4-year GPU depreciation creates a <strong>-$163B annual carrying deficit (-23% ROIC)</strong>, forcing a violent CapEx cut.</p>
+            </div>
+            <div class="tldr-item">
+                <h3>3. The Banking Pipeline ($668B)</h3>
+                <p>Debt entered via GPU-backed loans, bank credit lines to private credit, and utility bonds. Banks absorb <strong>$43B in credit losses</strong>, contracting macro lending by <strong>$434B</strong>.</p>
+            </div>
+            <div class="tldr-item">
+                <h3>4. S&P 500 Peak-to-Trough (-40.1%)</h3>
+                <p>The index drops from <strong>5,750 to 3,445</strong>. Semis plunge <strong>-86.5%</strong> (bullwhip effect), hyperscalers fall <strong>-46.9%</strong>, and the broader 480 falls <strong>-25.3%</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURED SECTION: S&P 500 TRAJECTORY & HISTORICAL COMPARISON -->
+    <div class="section">
+        <h2>📉 1. Market Crash Dynamics: Why AI Burst Reaches -40%, Not -57% (2008)</h2>
+        <p class="desc">
+            The S&P 500 faces a severe drawdown (-40.1%) driven by semiconductor operating leverage and multiple compression. However, the crash does not reach the catastrophic depth of the 2008 Great Financial Crisis (-56.8%). Here is the comparative trajectory and the structural reasons why.
+        </p>
+
+        <div class="chart-container hero-chart" style="margin-bottom: 20px;">
+            <h3>Historical Bubble Burst Comparison: S&P 500 Peak-to-Trough Trajectory</h3>
+            <div class="chart-wrapper">
+                <canvas id="historicalComparisonChart"></canvas>
+            </div>
+        </div>
+
+        <div class="callout danger" style="margin-top: 20px;">
+            <h4>What Causes the Drop? The 4-Stage Mechanical Transmission Engine</h4>
+            <p style="margin-bottom: 10px;">
+                The market does not drop from a vague change in sentiment; it drops because of a <strong>mathematical collision between front-loaded hardware depreciation and back-loaded software monetization</strong>. Here is the exact mechanical chain from our simulation:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 12px;">
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 8px; border-left: 3px solid #ef4444;">
+                    <strong style="color: #f87171; font-size: 0.9rem;">1. The ROIC Collision (The Spark)</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        Big-4 hyperscalers commit $710B in 2026 CapEx, creating $203B/yr in sustaining D&A and power. But enterprise customers (displacing only junior/mid staff) generate only ~$40B/yr in AI software revenue. Facing a <strong>-23% ROIC</strong>, hyperscalers slash CapEx by 45% to halt cash burn.
+                    </p>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 8px; border-left: 3px solid #f97316;">
+                    <strong style="color: #fb923c; font-size: 0.9rem;">2. Semiconductor Bullwhip (-86.5%)</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        When hyperscalers cut CapEx by 45%, they cancel forward chip orders to work through existing chip inventory. Chipmaker revenue drops 60%+. With 45% fixed fab and R&D costs, semiconductor operating income collapses by <strong>-75.9%</strong>, and P/E compresses from 38.5x to 21.6x.
+                    </p>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 8px; border-left: 3px solid #fbbf24;">
+                    <strong style="color: #fde047; font-size: 0.9rem;">3. Hyperscaler Margin Squeeze (-46.9%)</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        Hyperscalers cannot unspend the $1.85T deployed over 2024–2026. Non-cash depreciation charges hit income statements, reducing operating margins by 585 bps. Cloud growth slows from 25%+ to 4%, de-rating multiples from 31x compounders down to 22x mature tech.
+                    </p>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 8px; border-left: 3px solid #38bdf8;">
+                    <strong style="color: #7dd3fc; font-size: 0.9rem;">4. Macro Contagion to S&P 480 (-25.3%)</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        The $18T loss in tech equity wealth triggers a <strong>negative wealth effect</strong>, reducing consumer discretionary spending. Simultaneously, commercial banks absorb $43B in debt losses, shrinking broader commercial lending by <strong>$434B</strong> to protect capital ratios.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout success">
+            <h4>Why the AI Bubble Burst Will Not Be as Deep as the 2008 Financial Crisis (-40% vs -57%)</h4>
+            <p style="margin-bottom: 8px;">
+                While the investment volume in AI infrastructure ($1.85T over 3 years) is greater than subprime mortgage originations ($1.35T), four structural firewalls prevent an existential financial collapse:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;">
+                <li><strong>1. No Consumer Balance Sheet Insolvency:</strong> 2008 was fundamentally a household solvency crisis where millions of homeowners faced negative equity, default, and foreclosure, collapsing consumer spending. The AI burst is a corporate asset write-down.</li>
+                <li><strong>2. Bank Capital is Far Stronger (Dodd-Frank):</strong> In 2007, global investment banks were levered 30:1 to 40:1 with negligible common equity. Today, Tier-1 Common Equity (CET1) ratios are ~12.2% with strict liquidity buffers. Bank losses of $43B–$74B represent capital depletion, not systemic insolvency.</li>
+                <li><strong>3. Big Tech's Free Cash Flow Moats:</strong> Unlike 2000 dot-coms or 2008 mortgage originators, Microsoft, Alphabet, Apple, and Amazon generate hundreds of billions in non-AI high-margin cash flow (search ads, cloud IaaS, e-commerce, enterprise software), establishing a firm earnings floor.</li>
+                <li><strong>4. Private Credit & Shadow Debt Absorption:</strong> A major share of GPU and data center debt is held by locked-up, long-duration private credit funds (Blackstone, Magnetar, Coatue) and institutional infrastructure equity rather than demand-deposit commercial banks.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- LIVE DYNAMIC SIMULATOR -->
+    <div class="simulator-panel">
+        <h2>🎛️ Interactive Scenario Stress-Testing Engine</h2>
+        <p style="color: #94a3b8; font-size: 0.9rem;">
+            Test custom assumptions for labor displacement, software monetization capture, hyperscaler CapEx contraction, and multiple compression.
+        </p>
+
+        <div class="controls-grid">
+            <div class="control-group">
+                <label>
+                    <span>Junior Displacement</span>
+                    <span id="dispJuniorVal" style="color: #38bdf8;">20%</span>
+                </label>
+                <input type="range" id="dispJuniorSlider" min="0" max="50" step="1" value="20">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>Mid-Level Displacement</span>
+                    <span id="dispMidVal" style="color: #38bdf8;">10%</span>
+                </label>
+                <input type="range" id="dispMidSlider" min="0" max="30" step="1" value="10">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>Enterprise Software Capture</span>
+                    <span id="captureVal" style="color: #38bdf8;">18%</span>
+                </label>
+                <input type="range" id="captureSlider" min="5" max="40" step="1" value="18">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>Hyperscaler CapEx Cut</span>
+                    <span id="capexCutVal" style="color: #ef4444;">45%</span>
+                </label>
+                <input type="range" id="capexCutSlider" min="0" max="80" step="5" value="45">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>Multiple De-Rating Severity</span>
+                    <span id="derateVal" style="color: #f97316;">75%</span>
+                </label>
+                <input type="range" id="derateSlider" min="0" max="100" step="5" value="75">
+            </div>
+        </div>
+
+        <!-- Dynamic Simulator KPIs -->
+        <div class="kpi-grid" style="margin-bottom: 0;">
+            <div class="kpi-card" style="background: rgba(0,0,0,0.3);">
+                <div class="label">Gross Labor Wage Savings</div>
+                <div class="value blue" id="simWageSavings">$203.4B</div>
+                <div class="subtext" id="simDisplacedHeadcount">2.34M workers displaced</div>
+            </div>
+            <div class="kpi-card" style="background: rgba(0,0,0,0.3);">
+                <div class="label">Addressable Software Revenue</div>
+                <div class="value purple" id="simSoftwareRev">$36.6B</div>
+                <div class="subtext">From white-collar corporate budgets</div>
+            </div>
+            <div class="kpi-card" style="background: rgba(0,0,0,0.3);">
+                <div class="label">Big-4 Net Carrying Deficit</div>
+                <div class="value red" id="simNetDeficit">-$166.3B</div>
+                <div class="subtext">Annual D&A + Power vs. Software Capture</div>
+            </div>
+            <div class="kpi-card" style="background: rgba(0,0,0,0.3);">
+                <div class="label">S&P 500 Stressed Price Level</div>
+                <div class="value orange" id="simIndexLevel">3,445</div>
+                <div class="subtext" id="simDrawdownPct" style="color: var(--accent-red); font-weight: bold;">-40.1% Drawdown</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: S&P 500 COHORT DRAWDOWN -->
+    <div class="section">
+        <h2>📊 2. S&P 500 Waterfall Drawdown: Cohort Breakdown</h2>
+        <p class="desc">
+            With the top 10 concentrated constituents representing ~38% of the S&P 500, a CapEx contraction creates a four-stage drawdown.
+        </p>
+
+        <div class="chart-row">
+            <div class="chart-container">
+                <h3>S&P 500 Cohort Drawdowns in Base Bubble Burst</h3>
+                <div class="chart-wrapper">
+                    <canvas id="cohortDrawdownChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>CapEx Carrying Burden vs. Addressable Software Revenue</h3>
+                <div class="chart-wrapper">
+                    <canvas id="capexDeficitChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cohort Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Cohort</th>
+                    <th class="align-right">Weight</th>
+                    <th>Key Constituents</th>
+                    <th class="align-right">Base P/E</th>
+                    <th class="align-right">Stressed P/E</th>
+                    <th class="align-right">EPS Impact</th>
+                    <th class="align-right">Price Return</th>
+                    <th class="align-right">Index Drag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Cohort 1: AI Enablers & Silicon</strong></td>
+                    <td class="align-right">14.0%</td>
+                    <td>NVDA, AVGO, TSM (proxy), AMD</td>
+                    <td class="align-right">38.5x</td>
+                    <td class="align-right">21.6x</td>
+                    <td class="align-right" style="color: var(--accent-red);">-75.9%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-weight: bold;">-86.5%</td>
+                    <td class="align-right" style="color: var(--accent-red);">-12.1%</td>
+                </tr><tr>
+                    <td><strong>Cohort 2: Hyperscalers & Mega-Cap Tech</strong></td>
+                    <td class="align-right">25.0%</td>
+                    <td>MSFT, GOOGL, AMZN, META</td>
+                    <td class="align-right">31.0x</td>
+                    <td class="align-right">22.0x</td>
+                    <td class="align-right" style="color: var(--accent-red);">-25.2%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-weight: bold;">-46.9%</td>
+                    <td class="align-right" style="color: var(--accent-red);">-11.7%</td>
+                </tr><tr>
+                    <td><strong>Cohort 3: Power, Utilities & Data Center REITs</strong></td>
+                    <td class="align-right">4.5%</td>
+                    <td>VST, CEG, DLR, EQIX</td>
+                    <td class="align-right">27.0x</td>
+                    <td class="align-right">18.4x</td>
+                    <td class="align-right" style="color: var(--accent-red);">-15.8%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-weight: bold;">-42.7%</td>
+                    <td class="align-right" style="color: var(--accent-red);">-1.9%</td>
+                </tr><tr>
+                    <td><strong>Cohort 4: Broader S&P 480 (Non-Tech/Cyclicals)</strong></td>
+                    <td class="align-right">56.5%</td>
+                    <td>Financials, Healthcare, Industrials, Consumer</td>
+                    <td class="align-right">18.5x</td>
+                    <td class="align-right">15.9x</td>
+                    <td class="align-right" style="color: var(--accent-red);">-13.0%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-weight: bold;">-25.3%</td>
+                    <td class="align-right" style="color: var(--accent-red);">-14.3%</td>
+                </tr>
+                <tr style="background: rgba(239, 68, 68, 0.1); font-weight: bold;">
+                    <td><strong>S&P 500 INDEX TOTAL</strong></td>
+                    <td class="align-right">100.0%</td>
+                    <td>S&P 500 Aggregate</td>
+                    <td class="align-right">23.5x</td>
+                    <td class="align-right">18.75x</td>
+                    <td class="align-right" style="color: var(--accent-red);">-25.0%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-size: 1.05rem;">-40.1%</td>
+                    <td class="align-right" style="color: var(--accent-red); font-size: 1.05rem;">-40.1%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Mathematical Derivation: Variables First, Then Numbers -->
+        <div class="callout" style="border-left-color: #a855f7; background: rgba(168, 85, 247, 0.08); margin-top: 24px;">
+            <h4 style="color: #c084fc; font-size: 1.05rem;">Mathematical Derivation: Variables First, Then Numerical Substitution</h4>
+            <p style="margin-bottom: 12px; font-size: 0.9rem;">
+                The aggregate index drawdown is not an arbitrary estimate. It is derived algebraically from the weighted constituent price returns, driven by earnings per share (EPS) contractions and valuation multiple (P/E) de-ratings:
+            </p>
+
+            <div style="background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 8px; font-family: monospace; font-size: 0.92rem; color: #f0f4f8; line-height: 1.6; margin-bottom: 14px;">
+                <strong>1. Cohort Price Return Equation:</strong><br>
+                &Delta;P<sub>c</sub> = (1 + &Delta;EPS<sub>c</sub>) &times; [ (P/E)<sub>c,stressed</sub> / (P/E)<sub>c,base</sub> ] - 1<br><br>
+                <strong>2. Aggregate S&P 500 Index Drawdown:</strong><br>
+                &Delta;P<sub>index</sub> = &sum;<sub>c=1..4</sub> [ w<sub>c</sub> &times; &Delta;P<sub>c</sub> ]<br>
+                &Delta;P<sub>index</sub> = &sum;<sub>c=1..4</sub> [ w<sub>c</sub> &times; ( (1 + &Delta;EPS<sub>c</sub>) &times; [ (P/E)<sub>c,stressed</sub> / (P/E)<sub>c,base</sub> ] - 1 ) ]
+            </div>
+
+            <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 8px;"><strong>Variable Definitions:</strong></p>
+            <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 20px; line-height: 1.5; margin-bottom: 14px;">
+                <li><strong>w<sub>c</sub></strong>: Index weighting of cohort <em>c</em> (where &sum; w<sub>c</sub> = 100%).</li>
+                <li><strong>&Delta;EPS<sub>c</sub></strong>: Percentage change in cohort earnings per share under the CapEx shock.</li>
+                <li><strong>(P/E)<sub>c,base</sub></strong>: Starting forward multiple at the peak of the bubble.</li>
+                <li><strong>(P/E)<sub>c,stressed</sub></strong>: De-rated forward multiple at cyclical trough valuation.</li>
+                <li><strong>&Delta;P<sub>c</sub></strong>: Net percentage price return of cohort <em>c</em>.</li>
+            </ul>
+
+            <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 8px;"><strong>Step-by-Step Parameter Substitution (Base Scenario: 45% CapEx Cut):</strong></p>
+            <div style="background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 8px; font-family: monospace; font-size: 0.88rem; color: #f0f4f8; line-height: 1.6;">
+                &bull; <strong>Cohort 1 (Silicon Enablers):</strong> w<sub>1</sub> = 0.140, &Delta;EPS<sub>1</sub> = -75.9%, P/E: 38.5x &rarr; 21.6x<br>
+                &nbsp;&nbsp;&Delta;P<sub>1</sub> = (1 - 0.759) &times; (21.6 / 38.5) - 1 = 0.241 &times; 0.561 - 1 = <strong>-86.5%</strong><br>
+                &nbsp;&nbsp;Index Contribution: 0.140 &times; -0.865 = <strong>-12.11%</strong><br><br>
+
+                &bull; <strong>Cohort 2 (Hyperscalers):</strong> w<sub>2</sub> = 0.250, &Delta;EPS<sub>2</sub> = -25.2%, P/E: 31.0x &rarr; 22.0x<br>
+                &nbsp;&nbsp;&Delta;P<sub>2</sub> = (1 - 0.252) &times; (22.0 / 31.0) - 1 = 0.748 &times; 0.710 - 1 = <strong>-46.9%</strong><br>
+                &nbsp;&nbsp;Index Contribution: 0.250 &times; -0.469 = <strong>-11.73%</strong><br><br>
+
+                &bull; <strong>Cohort 3 (Power & Utilities):</strong> w<sub>3</sub> = 0.045, &Delta;EPS<sub>3</sub> = -15.8%, P/E: 27.0x &rarr; 18.4x<br>
+                &nbsp;&nbsp;&Delta;P<sub>3</sub> = (1 - 0.158) &times; (18.4 / 27.0) - 1 = 0.842 &times; 0.681 - 1 = <strong>-42.7%</strong><br>
+                &nbsp;&nbsp;Index Contribution: 0.045 &times; -0.427 = <strong>-1.92%</strong><br><br>
+
+                &bull; <strong>Cohort 4 (Broader S&P 480):</strong> w<sub>4</sub> = 0.565, &Delta;EPS<sub>4</sub> = -13.0%, P/E: 18.5x &rarr; 15.9x<br>
+                &nbsp;&nbsp;&Delta;P<sub>4</sub> = (1 - 0.130) &times; (15.9 / 18.5) - 1 = 0.870 &times; 0.859 - 1 = <strong>-25.3%</strong><br>
+                &nbsp;&nbsp;Index Contribution: 0.565 &times; -0.253 = <strong>-14.29%</strong><br><br>
+
+                ─────────────────────────────────────────────────────────────<br>
+                <strong>&Delta;P<sub>index</sub> = (-12.11%) + (-11.73%) + (-1.92%) + (-14.29%) = -40.05% &approx; -40.1%</strong><br>
+                <strong>Stressed Index Level = P<sub>base</sub> &times; (1 + &Delta;P<sub>index</sub>) = 5,750 &times; (1 - 0.4005) = 3,447 (Model output: 3,445)</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: THE LABOR & CAPEX MISMATCH -->
+    <div class="section">
+        <h2>💼 3. Labor Demographics vs. CapEx Payback Math</h2>
+        <p class="desc">
+            Senior software architects, trial attorneys, and audit partners cannot be automated due to legal liability and client trust. Constraining displacement to junior and mid-level roles severely limits the total wage pool captured.
+        </p>
+
+        <div class="chart-row">
+            <div class="chart-container">
+                <h3>Annual Wage Savings by Occupation ($ Billions)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="occupationSavingsChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>At-Risk Debt Stack by Transmission Channel ($668B Total)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="debtStackChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Occupation Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Occupation Category</th>
+                    <th>BLS Code</th>
+                    <th class="align-right">Headcount</th>
+                    <th class="align-right">Junior Comp</th>
+                    <th class="align-right">Mid Comp</th>
+                    <th class="align-right">Senior Comp</th>
+                    <th class="align-right">Base Wage Savings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Software Engineering, DevOps & QA</strong></td>
+                    <td>15-1252, 15-1250</td>
+                    <td class="align-right">4,500,000</td>
+                    <td class="align-right">$118,750</td>
+                    <td class="align-right">$168,750</td>
+                    <td class="align-right">$237,500</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Legal Services & Compliance</strong></td>
+                    <td>23-1011, 23-2011</td>
+                    <td class="align-right">1,350,000</td>
+                    <td class="align-right">$90,000</td>
+                    <td class="align-right">$156,250</td>
+                    <td class="align-right">$275,000</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Finance, Accounting & Auditing</strong></td>
+                    <td>13-2011, 13-2051, 43-3031</td>
+                    <td class="align-right">3,200,000</td>
+                    <td class="align-right">$81,250</td>
+                    <td class="align-right">$131,250</td>
+                    <td class="align-right">$212,500</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Customer Support & Contact Center Operations</strong></td>
+                    <td>43-4051</td>
+                    <td class="align-right">2,800,000</td>
+                    <td class="align-right">$47,500</td>
+                    <td class="align-right">$65,000</td>
+                    <td class="align-right">$97,500</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Marketing, Copywriting, Design & Localization</strong></td>
+                    <td>13-1161, 27-3000, 27-1024</td>
+                    <td class="align-right">1,600,000</td>
+                    <td class="align-right">$68,750</td>
+                    <td class="align-right">$106,250</td>
+                    <td class="align-right">$175,000</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Management Consulting & Market Research Analysts</strong></td>
+                    <td>13-1111, 19-3022</td>
+                    <td class="align-right">1,150,000</td>
+                    <td class="align-right">$106,250</td>
+                    <td class="align-right">$162,500</td>
+                    <td class="align-right">$262,500</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr><tr>
+                    <td><strong>Administrative Support & Executive Assistants</strong></td>
+                    <td>43-6011, 43-6014, 43-9021</td>
+                    <td class="align-right">3,400,000</td>
+                    <td class="align-right">$50,000</td>
+                    <td class="align-right">$68,750</td>
+                    <td class="align-right">$100,000</td>
+                    <td class="align-right">$33,227,757,188</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 4: THE BANKING & DEBT TRANSMISSION -->
+    <div class="section">
+        <h2>🏦 4. The Banking Nexus: How AI Debt Infiltrated Commercial Banks</h2>
+        <p class="desc">
+            Debt entered the financial system across five distinct channels. Major banks (JPMorgan, Goldman Sachs, Citi) hold direct bridge loans, extend subscription credit facilities to private credit managers, and hold data center CMBS.
+        </p>
+
+        <div class="chart-row">
+            <div class="chart-container">
+                <h3>Commercial Bank CET1 Capital Depletion by Stress Level</h3>
+                <div class="chart-wrapper">
+                    <canvas id="bankStressChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-container" style="display: flex; flex-direction: column; justify-content: center; background: rgba(0,0,0,0.2);">
+                <h3 style="color: #38bdf8;">Credit Contraction Multiplier Mechanism</h3>
+                <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;">
+                    When commercial banks absorb <strong>$43.4B in net credit losses</strong>, regulatory capital buffers require them to reduce risk-weighted assets. At a 10x contraction multiplier:
+                </p>
+                <div style="font-size: 1.6rem; font-weight: bold; color: #ef4444; margin: 10px 0;">
+                    -$434 Billion Credit Contraction
+                </div>
+                <p style="font-size: 0.8rem; color: #94a3b8;">
+                    Banks restrict general business and commercial credit lines, transmitting tech-sector distress into broader macroeconomic recession.
+                </p>
+            </div>
+        </div>
+
+        <!-- Debt Channels Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Channel</th>
+                    <th class="align-right">Total Debt</th>
+                    <th>Collateral / Instrument</th>
+                    <th>Direct Lenders</th>
+                    <th class="align-right">Bank Share</th>
+                    <th class="align-right">Base Bank Loss</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Neo-Cloud GPU Delayed Draw Term Loans (DDTL) & ABS</strong></td>
+                    <td class="align-right">$68.0B</td>
+                    <td>NVIDIA H100/H200/Blackwell GPU fleets & take-...</td>
+                    <td>Private Credit Syndicates, Tier-1 Investment Banks (Arrangers)</td>
+                    <td class="align-right">28%</td>
+                    <td class="align-right">$3.67B</td>
+                </tr><tr>
+                    <td><strong>Bank Subscription Lines & NAV Facilities to Private Debt Funds</strong></td>
+                    <td class="align-right">$220.0B</td>
+                    <td>Senior secured credit facilities extended by ...</td>
+                    <td>JPMorgan Chase, Goldman Sachs</td>
+                    <td class="align-right">100%</td>
+                    <td class="align-right">$14.85B</td>
+                </tr><tr>
+                    <td><strong>Wall Street Arranger Bridge Facilities & Syndication Warehouses</strong></td>
+                    <td class="align-right">$55.0B</td>
+                    <td>Short-term bridge financing and unplaced tran...</td>
+                    <td>Commercial Banks, Private Credit</td>
+                    <td class="align-right">100%</td>
+                    <td class="align-right">$13.75B</td>
+                </tr><tr>
+                    <td><strong>Data Center Commercial Real Estate Mortgages & CMBS</strong></td>
+                    <td class="align-right">$145.0B</td>
+                    <td>Construction loans, syndicated term loans, an...</td>
+                    <td>Commercial Banks, Private Credit</td>
+                    <td class="align-right">45%</td>
+                    <td class="align-right">$2.98B</td>
+                </tr><tr>
+                    <td><strong>Regulated Utility Corporate Bonds & Bank Credit Lines</strong></td>
+                    <td class="align-right">$180.0B</td>
+                    <td>Utility bonds and bank liquidity facilities f...</td>
+                    <td>Commercial Banks, Private Credit</td>
+                    <td class="align-right">35%</td>
+                    <td class="align-right">$8.19B</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 5: SUBPRIME VS AI BUBBLE COMPARISON -->
+    <div class="section">
+        <h2>⚖️ 5. Comparative Matrix: 2008 Subprime Mortgage Crisis vs. 2026 AI Bubble</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>2008 Subprime Mortgage Crisis</th>
+                    <th>2026 AI Infrastructure Bubble</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Total Capital Inflow</strong></td>
+                    <td>~$1.35 Trillion in subprime originations (2004–2007)</td>
+                    <td>~$1.85 Trillion in cumulative CapEx (2024–2026)</td>
+                </tr>
+                <tr>
+                    <td><strong>Primary Collateral</strong></td>
+                    <td>Residential homes (slow physical depreciation, cyclical value)</td>
+                    <td>Specialized GPUs & TPUs (3–4 year rapid technological obsolescence)</td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Transmission</strong></td>
+                    <td>Private-label MBS, CDOs, CDS held directly on bank balance sheets</td>
+                    <td>Private credit DDTLs, bank subscription lines, data center CMBS, utility bonds</td>
+                </tr>
+                <tr>
+                    <td><strong>Initial Funding Source</strong></td>
+                    <td>30:1 levered investment bank repo and SIVs</td>
+                    <td>Hyperscaler operating cash flows shifting to debt and SPVs</td>
+                </tr>
+                <tr>
+                    <td><strong>Systemic Endpoint</strong></td>
+                    <td>Banking solvency crisis (Lehman Brothers, Bear Stearns, AIG bailout)</td>
+                    <td>Severe tech multiple compression, negative ROIC write-downs, bank credit contraction</td>
+                </tr>
+                <tr>
+                    <td><strong>S&P 500 Drawdown</strong></td>
+                    <td>-56.8% (October 2007 to March 2009)</td>
+                    <td>-40.1% base case (-52.2% in systemic liquidity bust)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Embedded Model Data for Dynamic Simulator
+    const baselineData = {
+        headcountTotal: 18000000,
+        baseIndexLevel: 5750,
+        baseIndexEPS: 245.0,
+        big4CapexBase: 710000000000,
+        carryingRatio: 0.2858
+    };
+
+    // Simulator interactive updates
+    function updateSimulation() {
+        const dispJunior = parseFloat(document.getElementById('dispJuniorSlider').value) / 100;
+        const dispMid = parseFloat(document.getElementById('dispMidSlider').value) / 100;
+        const captureRatio = parseFloat(document.getElementById('captureSlider').value) / 100;
+        const capexCut = parseFloat(document.getElementById('capexCutSlider').value) / 100;
+        const derateSev = parseFloat(document.getElementById('derateSlider').value) / 100;
+
+        document.getElementById('dispJuniorVal').innerText = (dispJunior * 100).toFixed(0) + '%';
+        document.getElementById('dispMidVal').innerText = (dispMid * 100).toFixed(0) + '%';
+        document.getElementById('captureVal').innerText = (captureRatio * 100).toFixed(0) + '%';
+        document.getElementById('capexCutVal').innerText = (capexCut * 100).toFixed(0) + '%';
+        document.getElementById('derateVal').innerText = (derateSev * 100).toFixed(0) + '%';
+
+        const juniorSavings = 7200000 * dispJunior * 92000;
+        const midSavings = 6300000 * dispMid * 138000;
+        const seniorSavings = 4500000 * 0.01 * 210000;
+        const totalSavings = juniorSavings + midSavings + seniorSavings;
+        const totalDisplaced = (7200000 * dispJunior) + (6300000 * dispMid) + (4500000 * 0.01);
+
+        const softwareRev = totalSavings * captureRatio;
+        const carryingCost = baselineData.big4CapexBase * baselineData.carryingRatio;
+        const netDeficit = softwareRev - carryingCost;
+
+        document.getElementById('simWageSavings').innerText = '$' + (totalSavings / 1e9).toFixed(1) + 'B';
+        document.getElementById('simDisplacedHeadcount').innerText = (totalDisplaced / 1e6).toFixed(2) + 'M workers displaced';
+        document.getElementById('simSoftwareRev').innerText = '$' + (softwareRev / 1e9).toFixed(1) + 'B';
+        document.getElementById('simNetDeficit').innerText = '-$' + (Math.abs(netDeficit) / 1e9).toFixed(1) + 'B';
+
+        let aggregateDrawdown = 0;
+        // Cohort 1
+        const c1PE = 38.5 - derateSev * (38.5 - 16.0);
+        const c1EPS = -Math.min(0.78, capexCut * 1.35 * 1.25);
+        aggregateDrawdown += 0.14 * (((1 + c1EPS) * (c1PE / 38.5)) - 1);
+
+        // Cohort 2
+        const c2PE = 31.0 - derateSev * (31.0 - 19.0);
+        const c2EPS = -Math.min(0.45, (capexCut / 0.10) * 0.036 + 0.09);
+        aggregateDrawdown += 0.25 * (((1 + c2EPS) * (c2PE / 31.0)) - 1);
+
+        // Cohort 3
+        const c3PE = 27.0 - derateSev * (27.0 - 15.5);
+        const c3EPS = -Math.min(0.35, (capexCut / 0.10) * 0.035);
+        aggregateDrawdown += 0.045 * (((1 + c3EPS) * (c3PE / 27.0)) - 1);
+
+        // Cohort 4
+        const c4PE = 18.5 - derateSev * (18.5 - 15.0);
+        const c4EPS = -Math.min(0.25, 0.08 + (capexCut * 0.08));
+        aggregateDrawdown += 0.565 * (((1 + c4EPS) * (c4PE / 18.5)) - 1);
+
+        const newIndex = baselineData.baseIndexLevel * (1 + aggregateDrawdown);
+        document.getElementById('simIndexLevel').innerText = newIndex.toLocaleString(undefined, {maximumFractionDigits: 0});
+        document.getElementById('simDrawdownPct').innerText = (aggregateDrawdown * 100).toFixed(1) + '% Drawdown';
+    }
+
+    document.getElementById('dispJuniorSlider').addEventListener('input', updateSimulation);
+    document.getElementById('dispMidSlider').addEventListener('input', updateSimulation);
+    document.getElementById('captureSlider').addEventListener('input', updateSimulation);
+    document.getElementById('capexCutSlider').addEventListener('input', updateSimulation);
+    document.getElementById('derateSlider').addEventListener('input', updateSimulation);
+
+    // Initialize Charts with maintainAspectRatio: false for constrained screens
+    window.addEventListener('DOMContentLoaded', () => {
+        // Hero Chart: Historical Comparison
+        new Chart(document.getElementById('historicalComparisonChart'), {
+            type: 'line',
+            data: {
+                labels: ['Peak', 'M+3', 'M+6', 'M+9', 'M+12', 'M+15', 'M+18', 'Trough'],
+                datasets: [
+                    {
+                        label: '2026 AI Bubble Burst Model (Base: -40.1%)',
+                        data: [0, -12, -22, -31, -37, -39, -40.1, -40.1],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        fill: false
+                    },
+                    {
+                        label: '2000–2002 Dot-Com Crash (-49.1%)',
+                        data: [0, -8, -15, -24, -30, -38, -44, -49.1],
+                        borderColor: '#f97316',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    },
+                    {
+                        label: '2008 Great Financial Crisis (-56.8%)',
+                        data: [0, -6, -12, -18, -42, -50, -54, -56.8],
+                        borderColor: '#a855f7',
+                        borderDash: [3, 3],
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
+                },
+                scales: {
+                    y: { max: 0, min: -65, grid: { color: '#2e3a52' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Chart 2: S&P 500 Cohort Drawdowns
+        new Chart(document.getElementById('cohortDrawdownChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Cohort 1: Silicon', 'Cohort 2: Hyperscalers', 'Cohort 3: Power/REITs', 'Cohort 4: Broader 480', 'S&P 500 Total'],
+                datasets: [{
+                    label: 'Price Drawdown (%)',
+                    data: [-86.5, -46.9, -42.7, -25.3, -40.1],
+                    backgroundColor: ['#ef4444', '#f97316', '#eab308', '#38bdf8', '#c084fc'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { max: 0, min: -100, grid: { color: '#2e3a52' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Chart 3: CapEx Deficit
+        new Chart(document.getElementById('capexDeficitChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Big-4 CapEx', 'Hardware D&A + Power', 'User Case Rev', 'Aggressive Rev'],
+                datasets: [{
+                    label: '$ Billions (Annual)',
+                    data: [710.0, 202.9, 39.9, 72.6],
+                    backgroundColor: ['#38bdf8', '#ef4444', '#a855f7', '#10b981'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#2e3a52' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Chart 4: Occupation Savings
+        new Chart(document.getElementById('occupationSavingsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Software Eng', 'Admin Clerks', 'Finance/Acct', 'Customer Ops', 'Legal', 'Marketing', 'Consulting'],
+                datasets: [{
+                    label: 'Gross Annual Wage Savings ($B)',
+                    data: [57.8, 38.6, 36.2, 31.4, 21.6, 19.8, 16.1],
+                    backgroundColor: '#38bdf8',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#2e3a52' }, ticks: { color: '#94a3b8' } },
+                    y: { ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Chart 5: Debt Stack
+        new Chart(document.getElementById('debtStackChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Bank Sub Lines ($220B)', 'Utility Grid Debt ($180B)', 'Data Center CMBS ($145B)', 'GPU Neocloud DDTLs ($68B)', 'Bank Warehouses ($55B)'],
+                datasets: [{
+                    data: [220, 180, 145, 68, 55],
+                    backgroundColor: ['#a855f7', '#38bdf8', '#f97316', '#ef4444', '#eab308'],
+                    borderWidth: 1,
+                    borderColor: '#121826'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } } }
+            }
+        });
+
+        // Chart 6: Bank Capital Stress
+        new Chart(document.getElementById('bankStressChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Baseline (12.18%)', 'Mild (11.94%)', 'Base Burst (11.62%)', 'Systemic (11.23%)'],
+                datasets: [{
+                    label: 'CET1 Ratio (%)',
+                    data: [12.18, 11.94, 11.62, 11.23],
+                    backgroundColor: ['#10b981', '#38bdf8', '#f97316', '#ef4444'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 10.0, max: 13.0, grid: { color: '#2e3a52' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
