@@ -582,9 +582,107 @@ def generate_full_html_report():
         </div>
     </div>
 
-    <!-- SECTION 2: S&P 500 COHORT DRAWDOWN -->
+    <!-- SECTION 2: FOUNDATIONAL MODEL ASSUMPTIONS & FINANCIAL CONCEPTS -->
     <div class="section">
-        <h2>📊 2. S&P 500 Waterfall Drawdown: Cohort Breakdown</h2>
+        <h2>📐 2. Foundational Model Assumptions & Key Financial Concepts</h2>
+        <p class="desc">
+            All calculations in this report are grounded in empirical datasets (BLS occupational employment, hyperscaler 10-K filings, debt facility schedules, and S&P 500 cohort concentration). Below are the explicit parameters and boundary conditions that drive the simulation.
+        </p>
+
+        <!-- ASSUMPTIONS GRID -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+            <!-- Pillar 1 -->
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 1.2rem;">💼</span>
+                    <strong style="color: #38bdf8; font-size: 0.95rem;">1. Labor & Automation Boundaries</strong>
+                </div>
+                <ul style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.55;">
+                    <li><strong>Universe:</strong> 18.0M workers across 7 BLS categories (Software, Legal, Finance, Customer Ops, Creative, Consulting, Admin).</li>
+                    <li><strong>Wage Tiers:</strong> Junior (40%, $92k avg), Mid-level (35%, $138k avg), Senior/Exec (25%, $210k avg).</li>
+                    <li><strong>Displacement Ceiling:</strong> Junior (20%), Mid (10%), Senior (0–1%). Seniors are legally shielded by fiduciary liability, regulatory licensure, and signing authority.</li>
+                    <li><strong>Monetization Capture:</strong> AI software vendors capture 18% of gross corporate wage savings (based on historical enterprise SaaS budget capture norms).</li>
+                </ul>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 1.2rem;">🖥️</span>
+                    <strong style="color: #fb923c; font-size: 0.95rem;">2. Hyperscaler CapEx & Infrastructure</strong>
+                </div>
+                <ul style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.55;">
+                    <li><strong>Big-4 CapEx:</strong> Microsoft, Alphabet, Amazon, Meta deploy $710B in 2026 ($1.85T cumulatively over 2024–2026).</li>
+                    <li><strong>Depreciation Schedules:</strong> AI chips straight-line depreciated over 4 years (25%/yr); data center facilities over 15–20 years.</li>
+                    <li><strong>Sustaining Burden:</strong> 28.6% of CapEx/year ($202.9B in 2026) required for hardware D&A, high-voltage grid PPAs, and liquid cooling opex.</li>
+                    <li><strong>CapEx Retrenchment:</strong> Slashed by 25% (Mild), 45% (Base), or 65% (Systemic) once negative carrying deficits become unsustainable.</li>
+                </ul>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 1.2rem;">🏦</span>
+                    <strong style="color: #a855f7; font-size: 0.95rem;">3. Debt Stack & Banking Exposure</strong>
+                </div>
+                <ul style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.55;">
+                    <li><strong>At-Risk Stack:</strong> $668B across GPU DDTLs ($68B), private credit sub lines ($220B), bank warehouses ($55B), CMBS ($145B), and utility bonds ($180B).</li>
+                    <li><strong>Top-5 US Bank Exposure:</strong> $343B held across JPM, BofA, Citi, Wells Fargo, Goldman Sachs.</li>
+                    <li><strong>Loss-Given-Default:</strong> 35% on GPU loans (secondary hardware liquidation discount), 25% on warehouses, 20% on CMBS.</li>
+                    <li><strong>Credit Contraction:</strong> $43.2B bank capital loss forces a 10x risk-weighted deleveraging, withdrawing $434B in broader commercial lending.</li>
+                </ul>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 1.2rem;">📈</span>
+                    <strong style="color: #f87171; font-size: 0.95rem;">4. Equity Market & Valuation Baseline</strong>
+                </div>
+                <ul style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.55;">
+                    <li><strong>S&P 500 Baseline:</strong> Level 5,750; forward EPS $245.00; aggregate forward P/E 23.5x.</li>
+                    <li><strong>4 Cohorts:</strong> Silicon/Semis (14% weight, 38.5x P/E), Hyperscalers (25% weight, 31x P/E), Power/REITs (4.5% weight, 27x P/E), Broader 480 (56.5% weight, 18.5x P/E).</li>
+                    <li><strong>Operating Leverage:</strong> Silicon has a 1.35x revenue-to-capex beta and 1.25x EPS amplification due to 45% fixed fab/R&D costs.</li>
+                    <li><strong>Macro Wealth Drag:</strong> Tech equity losses ($18T) reduce broader corporate and discretionary demand by 8–14%.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EXPLANATORY PRIMER: WHAT IS MULTIPLE DE-RATING? -->
+        <div class="callout" style="border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08); margin-top: 16px;">
+            <h4 style="color: #38bdf8; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                💡 Financial Primer: What Does "Multiple De-Rating" Mean?
+            </h4>
+            <p style="font-size: 0.88rem; color: #cbd5e1; margin-top: 6px; line-height: 1.55;">
+                A <strong>valuation multiple</strong> (most commonly the <strong>Price-to-Earnings or P/E ratio</strong>) is the price investors are willing to pay today for every <strong>$1.00 of earnings</strong> a company generates. If a semiconductor company earns $10.00 per share and trades at $385.00, its multiple is <strong>38.5x</strong>. Investors pay high multiples when they expect explosive, uninterrupted multi-year compounding.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 12px;">
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 6px;">
+                    <strong style="color: #7dd3fc; font-size: 0.88rem;">1. What is "De-Rating"?</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        <strong>De-rating (or multiple compression)</strong> occurs when the market re-evaluates a stock and decides to pay a lower multiple for those same earnings (e.g., cutting the multiple from 38.5x down to 21.6x). Even if earnings didn't drop a single penny, the stock price would fall from $385.00 to $216.00 (-43.9%) simply because the market is no longer willing to pay a premium valuation.
+                    </p>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 6px;">
+                    <strong style="color: #7dd3fc; font-size: 0.88rem;">2. Why Does De-Rating Happen in a Bubble Burst?</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        When growth decelerates and hyperscalers freeze orders, the company loses its "exponential tech compounder" status and is re-classified as a "cyclical, capital-intensive manufacturing business." Investors demand higher earnings yields, and the premium multiple evaporates.
+                    </p>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 12px 14px; border-radius: 6px;">
+                    <strong style="color: #f87171; font-size: 0.88rem;">3. The "Double Whammy" of Market Crashes</strong>
+                    <p style="font-size: 0.82rem; color: #cbd5e1; margin-top: 4px;">
+                        Stock price is fundamentally: <code>Price = EPS × (P/E)</code>. In a bubble burst, investors get hit by both barrels simultaneously:
+                        <strong>(1) Earnings collapse</strong> by -75.9% (to $2.41), and <strong>(2) the multiple de-rates</strong> from 38.5x to 21.6x. The resulting price is <code>$2.41 × 21.6x = $52.06</code>—a devastating <strong>-86.5% peak-to-trough collapse</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: S&P 500 COHORT DRAWDOWN -->
+    <div class="section">
+        <h2>📊 3. S&P 500 Waterfall Drawdown: Cohort Breakdown</h2>
         <p class="desc">
             With the top 10 concentrated constituents representing ~38% of the S&P 500, a CapEx contraction creates a four-stage drawdown.
         </p>
@@ -691,9 +789,9 @@ def generate_full_html_report():
         </div>
     </div>
 
-    <!-- SECTION 3: THE LABOR & CAPEX MISMATCH -->
+    <!-- SECTION 4: THE LABOR & CAPEX MISMATCH -->
     <div class="section">
-        <h2>💼 3. Labor Demographics vs. CapEx Payback Math</h2>
+        <h2>💼 4. Labor Demographics vs. CapEx Payback Math</h2>
         <p class="desc">
             Senior software architects, trial attorneys, and audit partners cannot be automated due to legal liability and client trust. Constraining displacement to junior and mid-level roles severely limits the total wage pool captured.
         </p>
@@ -740,9 +838,9 @@ def generate_full_html_report():
         </table>
     </div>
 
-    <!-- SECTION 4: THE BANKING & DEBT TRANSMISSION -->
+    <!-- SECTION 5: THE BANKING & DEBT TRANSMISSION -->
     <div class="section">
-        <h2>🏦 4. The Banking Nexus: How AI Debt Infiltrated Commercial Banks</h2>
+        <h2>🏦 5. The Banking Nexus: How AI Debt Infiltrated Commercial Banks</h2>
         <p class="desc">
             Debt entered the financial system across five distinct channels. Major banks (JPMorgan, Goldman Sachs, Citi) hold direct bridge loans, extend subscription credit facilities to private credit managers, and hold data center CMBS.
         </p>
@@ -793,9 +891,9 @@ def generate_full_html_report():
         </table>
     </div>
 
-    <!-- SECTION 5: SUBPRIME VS AI BUBBLE COMPARISON -->
+    <!-- SECTION 6: SUBPRIME VS AI BUBBLE COMPARISON -->
     <div class="section">
-        <h2>⚖️ 5. Comparative Matrix: 2008 Subprime Mortgage Crisis vs. 2026 AI Bubble</h2>
+        <h2>⚖️ 6. Comparative Matrix: 2008 Subprime Mortgage Crisis vs. 2026 AI Bubble</h2>
         <table>
             <thead>
                 <tr>
