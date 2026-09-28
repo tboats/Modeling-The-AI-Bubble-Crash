@@ -353,7 +353,7 @@ def generate_full_html_report():
             A First-Principles Macroeconomic & Financial System Simulation: White-Collar Labor Displacement Limits, the $710B CapEx Payback Deficit, Banking Contagion Channels, and S&P 500 Waterfall Drawdown.
         </p>
         <div class="meta-badges">
-            <span class="badge critical">Base Crash: -40.1% S&P 500 Drawdown</span>
+            <span class="badge critical">Drawdown Range: -23% to -52% (Base: -40.1%)</span>
             <span class="badge warning">Big-4 Net Carrying Deficit: -$163.1B/yr</span>
             <span class="badge info">At-Risk Debt Stack: $668B</span>
             <span class="badge">Model Horizon: 2026-2028</span>
@@ -380,26 +380,84 @@ def generate_full_html_report():
                 <p>Debt entered via GPU-backed loans, bank credit lines to private credit, and utility bonds. Banks absorb <strong>$43B in credit losses</strong>, contracting macro lending by <strong>$434B</strong>.</p>
             </div>
             <div class="tldr-item">
-                <h3>4. S&P 500 Peak-to-Trough (-40.1%)</h3>
-                <p>The index drops from <strong>5,750 to 3,445</strong>. Semis plunge <strong>-86.5%</strong> (bullwhip effect), hyperscalers fall <strong>-46.9%</strong>, and the broader 480 falls <strong>-25.3%</strong>.</p>
+                <h3>4. S&P 500 Peak-to-Trough (-30% to -45% Likely, Base: -40.1%)</h3>
+                <p>The index drops from <strong>5,750 to a base trough of 3,445</strong> (scenario corridor: 2,750 to 4,420). Semis plunge <strong>-56% to -91%</strong>, hyperscalers fall <strong>-27% to -61%</strong>, and broader 480 falls <strong>-13% to -38%</strong>.</p>
             </div>
         </div>
     </div>
 
     <!-- FEATURED SECTION: S&P 500 TRAJECTORY & HISTORICAL COMPARISON -->
     <div class="section">
-        <h2>📉 1. Market Crash Dynamics: Why AI Burst Reaches -40%, Not -57% (2008)</h2>
+        <h2>📉 1. Market Crash Dynamics: Probabilistic Scenario Range (-23% to -52%) vs. 2008 (-57%)</h2>
         <p class="desc">
-            The S&P 500 faces a severe drawdown (-40.1%) driven by semiconductor operating leverage and multiple compression. However, the crash does not reach the catastrophic depth of the 2008 Great Financial Crisis (-56.8%). Here is the comparative trajectory and the structural reasons why.
+            A single point estimate (such as -40%) conveys false precision in macroeconomic modeling. In reality, the S&P 500 drawdown is governed by a probabilistic corridor depending on CapEx retrenchment severity, multiple compression, and credit transmission. The core interquartile range lands between <strong>-30% and -45%</strong> (Base Case: <strong>-40.1%</strong>), remaining structurally shallower than 2008 (-56.8%).
         </p>
 
         <div class="chart-container hero-chart" style="margin-bottom: 20px;">
-            <h3>Historical Bubble Burst Comparison: S&P 500 Peak-to-Trough Trajectory</h3>
+            <h3>Historical Bubble Burst Comparison: S&P 500 Peak-to-Trough Trajectory & Scenario Corridor</h3>
             <p style="font-size: 0.8rem; color: #94a3b8; margin: -6px 0 10px 0;">
-                Drawdown progression indexed from cycle peak (Month 0) through post-peak months (Month 3 = 3 months in, Month 6, etc.) to cyclical trough.
+                Shaded red band highlights the modeled AI bubble burst corridor from Mild (-23.1%) to Systemic (-52.2%), centered on the Base Case (-40.1%), plotted against the 2000 Dot-Com crash and 2008 GFC.
             </p>
             <div class="chart-wrapper">
                 <canvas id="historicalComparisonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- SCENARIO SPECTRUM TABLE -->
+        <div style="margin-top: 18px; margin-bottom: 22px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 20px;">
+            <h4 style="font-size: 1.02rem; margin-bottom: 8px; color: #f8fafc;">
+                🎯 Probabilistic Scenario Spectrum: Why a Range (-23% to -52%) Rather Than a Single Number
+            </h4>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 14px;">
+                The market's drawdown depth is determined by the severity of the CapEx pullback, valuation de-rating, and credit contagion. Our simulation models three anchor scenarios spanning from a soft landing tech correction to a systemic credit crunch:
+            </p>
+            <div style="overflow-x: auto;">
+                <table class="data-table" style="font-size: 0.82rem;">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Likelihood</th>
+                            <th class="align-right">CapEx Cut</th>
+                            <th class="align-right">P/E Compression</th>
+                            <th class="align-right">EPS Impairment</th>
+                            <th class="align-right">S&P 500 Trough</th>
+                            <th class="align-right">Peak-to-Trough</th>
+                            <th>Transmission Mechanics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: #38bdf8;">Mild Disillusionment (Soft Landing)</strong></td>
+                            <td><span class="badge info" style="font-size: 0.72rem;">~25%</span></td>
+                            <td class="align-right">-25%</td>
+                            <td class="align-right">23.5x &rarr; 20.8x (-11%)</td>
+                            <td class="align-right">-13.2%</td>
+                            <td class="align-right"><strong>4,420</strong></td>
+                            <td class="align-right" style="color: #38bdf8; font-weight: 700;">-23.1%</td>
+                            <td>Hyperscalers temporarily pause incremental cluster builds to digest capacity; private credit absorbs losses cleanly; minimal bank lending spillover.</td>
+                        </tr>
+                        <tr style="background: rgba(239, 68, 68, 0.08);">
+                            <td><strong style="color: #f87171;">Base AI Bubble Burst (CapEx Reality Trap)</strong></td>
+                            <td><span class="badge warning" style="font-size: 0.72rem;">~55%</span></td>
+                            <td class="align-right">-45%</td>
+                            <td class="align-right">23.5x &rarr; 18.8x (-20%)</td>
+                            <td class="align-right">-25.0%</td>
+                            <td class="align-right"><strong>3,445</strong></td>
+                            <td class="align-right" style="color: #ef4444; font-weight: 700;">-40.1%</td>
+                            <td>-$163B/yr net carrying deficit triggers a 45% CapEx cut; multi-quarter semi bullwhip (-86.5%); $43B bank loss contracts $434B in lending.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #ef4444;">Systemic Liquidity Bust (Hard Landing)</strong></td>
+                            <td><span class="badge critical" style="font-size: 0.72rem;">~20%</span></td>
+                            <td class="align-right">-65%</td>
+                            <td class="align-right">23.5x &rarr; 17.2x (-27%)</td>
+                            <td class="align-right">-34.6%</td>
+                            <td class="align-right"><strong>2,750</strong></td>
+                            <td class="align-right" style="color: #ef4444; font-weight: 700;">-52.2%</td>
+                            <td>GPU neocloud and data center insolvencies trigger private credit runs; bank credit contraction exceeds $700B; macro consumer recession.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -855,7 +913,7 @@ def generate_full_html_report():
 
     // Initialize Charts with maintainAspectRatio: false for constrained screens
     window.addEventListener('DOMContentLoaded', () => {{
-        // Hero Chart: Historical Comparison
+        // Hero Chart: Historical Comparison & Scenario Corridor
         new Chart(document.getElementById('historicalComparisonChart'), {{
             type: 'line',
             data: {{
@@ -871,30 +929,54 @@ def generate_full_html_report():
                 ],
                 datasets: [
                     {{
-                        label: '2026 AI Bubble Burst Model (Base: -40.1%)',
-                        data: [0, -12, -22, -31, -37, -39, -40.1, -40.1],
+                        label: 'AI Burst Range: Mild Scenario (-23.1%)',
+                        data: [0, -6.0, -12.0, -17.0, -20.0, -22.0, -23.1, -23.1],
+                        borderColor: 'rgba(56, 189, 248, 0.85)',
+                        borderDash: [4, 4],
+                        borderWidth: 2,
+                        pointRadius: 2,
+                        pointBackgroundColor: '#38bdf8',
+                        fill: false
+                    }},
+                    {{
+                        label: 'AI Burst Range: Systemic Scenario (-52.2%)',
+                        data: [0, -15.0, -27.0, -38.0, -45.0, -49.0, -51.5, -52.2],
+                        borderColor: 'rgba(239, 68, 68, 0.65)',
+                        borderDash: [4, 4],
+                        borderWidth: 2,
+                        pointRadius: 2,
+                        pointBackgroundColor: '#ef4444',
+                        fill: '-1',
+                        backgroundColor: 'rgba(239, 68, 68, 0.12)'
+                    }},
+                    {{
+                        label: '2026 AI Bubble Burst: Base Case (-40.1%)',
+                        data: [0, -12.0, -22.0, -31.0, -37.0, -39.0, -40.1, -40.1],
                         borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        borderWidth: 3,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3.5,
                         pointRadius: 4,
+                        pointBackgroundColor: '#ef4444',
                         fill: false
                     }},
                     {{
                         label: '2000–2002 Dot-Com Crash (-49.1%)',
-                        data: [0, -8, -15, -24, -30, -38, -44, -49.1],
+                        data: [0, -8.0, -15.0, -24.0, -30.0, -38.0, -44.0, -49.1],
                         borderColor: '#f97316',
                         borderDash: [5, 5],
                         borderWidth: 2,
                         pointRadius: 3,
+                        pointBackgroundColor: '#f97316',
                         fill: false
                     }},
                     {{
                         label: '2008 Great Financial Crisis (-56.8%)',
-                        data: [0, -6, -12, -18, -42, -50, -54, -56.8],
+                        data: [0, -6.0, -12.0, -18.0, -42.0, -50.0, -54.0, -56.8],
                         borderColor: '#a855f7',
                         borderDash: [3, 3],
                         borderWidth: 2,
                         pointRadius: 3,
+                        pointBackgroundColor: '#a855f7',
                         fill: false
                     }}
                 ]
@@ -902,8 +984,27 @@ def generate_full_html_report():
             options: {{
                 responsive: true,
                 maintainAspectRatio: false,
+                interaction: {{
+                    mode: 'index',
+                    intersect: false
+                }},
                 plugins: {{
-                    legend: {{ position: 'bottom', labels: {{ color: '#94a3b8', font: {{ size: 11 }} }} }}
+                    legend: {{ 
+                        position: 'bottom', 
+                        labels: {{ 
+                            color: '#94a3b8', 
+                            font: {{ size: 10 }},
+                            boxWidth: 22,
+                            padding: 8
+                        }} 
+                    }},
+                    tooltip: {{
+                        callbacks: {{
+                            label: function(context) {{
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                            }}
+                        }}
+                    }}
                 }},
                 scales: {{
                     y: {{ 
@@ -911,7 +1012,10 @@ def generate_full_html_report():
                         min: -65, 
                         title: {{ display: true, text: 'S&P 500 Drawdown (%)', color: '#94a3b8', font: {{ size: 11 }} }},
                         grid: {{ color: '#2e3a52' }}, 
-                        ticks: {{ color: '#94a3b8' }} 
+                        ticks: {{ 
+                            color: '#94a3b8',
+                            callback: function(value) {{ return value + '%'; }}
+                        }} 
                     }},
                     x: {{ 
                         title: {{ display: true, text: 'Timeline (Months Elapsed from Market Peak)', color: '#94a3b8', font: {{ size: 11 }} }},
