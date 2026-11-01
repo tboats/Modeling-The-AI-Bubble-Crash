@@ -12,7 +12,9 @@ _(All backlog tasks for v1.0.0 completed)_
 
 ## Quick Tasks
 
-_(none)_
+- [x] Build standalone Anthropic S-1 (`ANT`) financial & take-or-pay compute stress-test model (`repo/data/anthropic_s1_2026.json`, `repo/src/anthropic_s1_model.py`, `repo/tests/test_anthropic_s1.py`)
+- [x] Integrate Anthropic S-1 case study and hyperscaler deficit reconciliation into `artifacts/specs/spec-ai-bubble-economic-model.md`, `docs/ai-bubble-burst-report.md`, and interactive HTML report (`repo/src/generate_report_html.py`)
+- [x] Create standalone interactive HTML report for the Anthropic S-1 (`ANT`) evaluation (`docs/anthropic_s1_evaluation.html` & generator `repo/src/generate_anthropic_s1_html.py`) with clean currency rendering (zero backslashes) and interactive stress-testing charts
 
 ## Notes
 

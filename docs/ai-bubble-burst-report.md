@@ -272,12 +272,45 @@ $$P_{\text{stressed}} = P_{\text{base}} \times (1 + \Delta P_{\text{index}}) = 5
 
 ---
 
-## 6. Accessing the Interactive HTML Dashboard
+## 6. Frontier AI Lab Micro-Foundations: The Anthropic S-1 (`ANT`) & The \$688.6B Compute Guillotine
+
+On **October 26, 2026**, **Anthropic, PBC** filed its Form S-1 registration statement with the SEC (Nasdaq: **`ANT`**), providing the first audited financial look at a frontier AI lab. Rather than refuting the macroeconomic CapEx-to-Software deficit modeled in Sections 1 and 2, Anthropic’s S-1 exposes the exact microeconomic mechanism by which hyperscalers have **shifted hardware depreciation risk off their own income statements and onto frontier labs via non-cancelable take-or-pay compute contracts**.
+
+### 6.1. Audited Unit Economics: Stripping Out Both GAAP Distortions
+Anthropic’s S-1 contains two massive accounting distortions pointing in opposite directions:
+1. **The `-\$80.75B` H1 2026 GAAP Net Loss is a Non-Cash Accounting Mirage**: Anthropic’s June 30, 2026 balance sheet lists `\$108.6B` in convertible notes payable on just **`\$6.2B` of actual principal** (held primarily by Amazon from 2023–2024 investments). Because Anthropic elected the ASC 825-10 fair-value option, valuation escalation triggered a **`-\$72.4B` non-cash mark-to-market charge** in H1 2026. These notes convert into Class N stock at IPO, leaving Anthropic debt-free with **`\$131.7B` in liquid reserves** (`\$112.4B` cash + `\$19.3B` marketable securities) and **`+\$3.93B` in H1 operating cash flow** (`+\$974M` Q2 GAAP operating profit on `\$11.56B` Q2 revenue).
+2. **The `85.4%` Gross Margin is an Accounting Classification Illusion**: In Note 8 (Functional Expenses), Anthropic reports `\$2,380M` in Cost of Revenue on `\$16,286M` H1 2026 revenue (`85.4%` gross margin), but parks **`\$9,741M` of pre-training and research compute inside R&D**. Because frontier model weights become economically obsolete within 9–15 months, pre-training is recurring maintenance COGS, not long-lived capital R&D. Using the primary income statement’s **Total Compute & Infrastructure expense (`\$8,945M` in H1 2026)** yields a **true compute-adjusted gross margin of `45.1%`**—before deducting `\$3,808M` (`23.4%` of revenue) in Sales & Marketing, which is heavily weighted toward cloud marketplace revenue-share commissions on the `48%` of revenue routed through AWS, Google Cloud, and Azure.
+
+### 6.2. Reconciling `\$16.29B` H1 Revenue (`\$46.22B` Q2 Run-Rate) with the Macro Payback Deficit
+Why has Anthropic reached a `\$46.22B` annualized revenue run-rate with **`~900%` Net Revenue Retention (NRR)** when our Base Case macro model estimates `\$39.9B` (`\$72.6B` Aggressive Case) in domestic white-collar software capture?
+* **First-Mover Capture of Software Engineering (`Claude Code`)**: In Section 1, US software engineering alone accounts for **`\$57.8B` in annual gross wage savings** (the single largest high-wage occupational pool). By dominating agentic coding (`Claude Code`) and global API workflows across 11,900+ enterprise accounts, Anthropic has captured the highest-elasticity global developer budget first.
+* **The Off-Balance-Sheet Risk Transfer (`\$587.0B` Baseline / `\$688.6B` Post-Subsequent Events)**: To obtain its `\$131.7B` cash pile and compute access from Amazon, Google, and Microsoft, Anthropic signed **`\$265.6B` in fixed purchase commitments** plus **`\$321.4B` in uncommenced compute/data-center leases** as of June 30, 2026 (`\$587.0B`), expanding to **`~\$688.6B`** including Q3/October 2026 subsequent events:
+  * **Google Cloud & Custom TPU Capacity**: `\$114.5B` direct take-or-pay cloud (Apr 2026–Jul 2033) + `\$137.5B` midpoint (`\$125B–\$150B`) additional TPU leases (2028–2031) = **`\$252.0B`**.
+  * **Broadcom / Apollo Equipment & Data-Center Leases**: **`\$161.2B`** (2026–2034).
+  * **SpaceX (xAI Infrastructure Subsidiary)**: Up to **`\$120.5B`** through 2029.
+  * **Amazon Web Services (AWS)**: **`\$110.0B`** minimum take-or-pay infrastructure commitment.
+  * **Microsoft Azure**: **`\$44.9B`** binding minimum commitment (Nov 2026–May 2033) *"regardless of actual usage."*
+* **The `42.4%` Depreciation Transfer**: By 2028, Anthropic’s scheduled minimum compute outflow reaches **`~\$86.0B/year`**—which equals **`42.4%` of the Big-4 hyperscalers' entire `\$202.9B` annual carrying burden** modeled in Section 2.2. In effect, hyperscalers converted `\$131.7B` of private equity/convertible funding into `\$688.6B` of guaranteed multi-year cloud lease backlog.
+
+### 6.3. Multi-Year Cash Flow & Valuation Waterfall (2026–2030 Simulation)
+Our standalone simulation engine ([`anthropic_s1_model.py`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/repo/src/anthropic_s1_model.py)) stress-tests Anthropic’s `\$131.7B` starting cash reserve (`\$146.7B` pro-forma with `\$15.0B` net IPO proceeds) against the ramping take-or-pay schedule across three scenarios:
+
+| Scenario (Probability) | 2028E Revenue | 2028E Compute Outflow | 2026–30 Deadweight Compute | 2029E Cash Reserve | 2028E Implied Market Cap | Return vs. \$1.5T IPO | Solvency & Operational Verdict |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1. Bull: Agentic Singularity (20%)** | \$165.0B | \$86.0B | \$10.3B | **\$300.2B** | **\$2,610.2B** | **+74.0%** | `SOLVENT_SELF_FUNDING` |
+| **2. Base: Rational Enterprise Plateau (50%)** | \$85.0B | \$77.4B | \$115.6B | **\$122.2B** | **\$844.7B** | **-43.7%** | `SOLVENT_CASH_BUFFER_BURN` |
+| **3. Bear: AI Bubble Burst / Deflation (30%)** | \$40.0B | \$64.5B | \$182.9B | **\$52.4B** | **\$232.4B** | **-84.5%** | `SOLVENT_CASH_BUFFER_BURN` |
+| **Probability-Weighted Expected Outcome** | — | — | — | **\$136.9B** | **\$1,014.1B** | **-32.4%** | Operational survivor; IPO overpriced at \$1.5T |
+
+---
+
+## 7. Accessing the Interactive HTML Dashboard
 
 A fully interactive, single-file HTML simulation dashboard has been compiled and is accessible locally:
 * **Interactive Dashboard File:** [`docs/ai_bubble_burst_report.html`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/docs/ai_bubble_burst_report.html)
+* **Python Simulation Modules:** [`labor_capex_model.py`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/repo/src/labor_capex_model.py), [`banking_contagion_model.py`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/repo/src/banking_contagion_model.py), [`sp500_valuation_model.py`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/repo/src/sp500_valuation_model.py), and [`anthropic_s1_model.py`](file:///Users/tboats/Documents/Code/investing/META/Projects/ai-bubble-burst-model/repo/src/anthropic_s1_model.py).
 * **Features Included:**
   * Dynamic sliders for Junior Displacement %, Mid Displacement %, Enterprise Capture %, CapEx Contraction %, and Multiple Compression %.
   * Real-time calculation of Gross Wage Savings, Software Revenue, Net CapEx Deficit, and S&P 500 Index Price Level.
-  * Six responsive Chart.js visualizations (CapEx vs. Software Deficit, Occupational Savings, Debt Stack Doughnut, Bank Capital Stress, S&P 500 Cohort Waterfall, and Historical Bubble Trajectory).
-  * Comprehensive occupational and debt transmission data tables.
+  * Eight responsive Chart.js visualizations (including the new **Anthropic 2026–2030 Liquidity vs. Take-or-Pay Compute Floor Trajectory** and **\$688.6B Counterparty Commitment Breakdown**).
+  * Comprehensive occupational, debt transmission, and Anthropic S-1 scenario waterfall tables.

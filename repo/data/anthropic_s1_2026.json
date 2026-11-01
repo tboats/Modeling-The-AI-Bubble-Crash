@@ -1,0 +1,161 @@
+{
+  "filing_metadata": {
+    "company_name": "Anthropic, PBC",
+    "entity_type": "Delaware Public Benefit Corporation",
+    "filing_type": "Form S-1 Registration Statement",
+    "filing_date": "2026-10-26",
+    "exchange": "Nasdaq Global Select Market",
+    "ticker": "ANT",
+    "initial_valuation_target_range_billions": [1500.0, 2000.0],
+    "revised_market_consensus_valuation_billions": 1500.0,
+    "institutional_buy_side_fair_value_billions": 1000.0
+  },
+  "historical_annual_income_statement_millions": {
+    "2023": {
+      "total_revenue": 41.0
+    },
+    "2024": {
+      "total_revenue": 386.0,
+      "usage_api_revenue": 288.0,
+      "subscription_revenue": 98.0
+    },
+    "2025": {
+      "total_revenue": 4585.0,
+      "usage_api_revenue": 3796.0,
+      "subscription_revenue": 789.0,
+      "total_operating_expenses": 12585.0,
+      "operating_loss": -8000.0,
+      "net_loss": -42000.0
+    }
+  },
+  "half_year_comparison_millions": {
+    "H1_2025": {
+      "period": "Six Months Ended June 30, 2025",
+      "total_revenue": 1163.0,
+      "cost_of_revenue_inference": 1023.0,
+      "total_operating_expenses": 3298.0,
+      "operating_loss": -2135.0,
+      "operating_cash_flow": -1500.0
+    },
+    "H1_2026": {
+      "period": "Six Months Ended June 30, 2026",
+      "total_revenue": 16286.0,
+      "usage_api_revenue": 13060.0,
+      "subscription_revenue": 3226.0,
+      "cloud_marketplace_routed_share": 0.48,
+      "nature_of_expense_breakdown": {
+        "compute_and_infrastructure": 8945.0,
+        "sales_marketing_and_partnerships": 3168.0,
+        "personnel_including_sbc": 3152.0,
+        "other_operating_and_administrative": 1714.0,
+        "total_operating_expenses": 16979.0
+      },
+      "functional_expense_breakdown_note8": {
+        "cost_of_revenue_inference": 2380.0,
+        "research_and_development_pretraining": 9741.0,
+        "sales_and_marketing": 3808.0,
+        "general_and_administrative": 1050.0,
+        "total_operating_expenses": 16979.0
+      },
+      "operating_loss": -693.0,
+      "non_cash_convertible_note_fair_value_loss": -72400.0,
+      "other_non_operating_items": -7655.0,
+      "net_loss": -80748.0,
+      "operating_cash_flow": 3929.0
+    }
+  },
+  "quarterly_revenue_trajectory_millions": {
+    "Q1_2025": { "revenue": 376.0 },
+    "Q2_2025": { "revenue": 787.0 },
+    "Q3_2025": { "revenue": 1382.0 },
+    "Q4_2025": { "revenue": 2040.0 },
+    "Q1_2026": {
+      "revenue": 4731.0,
+      "operating_income": -1667.0
+    },
+    "Q2_2026": {
+      "revenue": 11555.0,
+      "operating_income": 974.0,
+      "annualized_revenue_run_rate": 46220.0
+    }
+  },
+  "customer_and_cohort_metrics": {
+    "net_revenue_retention_pct": 9.00,
+    "customers_over_100k_arr": 11900,
+    "customers_over_1m_arr": 1900,
+    "customers_over_10m_arr": 250,
+    "top_5_customers_revenue_share": 0.25,
+    "single_customer_over_10pct_flag": false
+  },
+  "balance_sheet_june_30_2026_millions": {
+    "cash_and_cash_equivalents": 112400.0,
+    "short_term_marketable_securities": 19300.0,
+    "total_liquid_reserves": 131700.0,
+    "other_assets": 15658.0,
+    "total_assets": 147358.0,
+    "convertible_notes_carrying_fair_value": 108600.0,
+    "convertible_notes_actual_principal": 6200.0,
+    "other_liabilities": 8867.0,
+    "total_liabilities": 117467.0,
+    "redeemable_convertible_preferred_stock": 157510.0,
+    "accumulated_deficit": -132902.0,
+    "total_stockholders_deficit": -127619.0
+  },
+  "compute_and_infrastructure_commitments_billions": {
+    "as_of_june_30_2026": {
+      "non_cancelable_purchase_commitments": 265.6,
+      "uncommenced_compute_and_datacenter_leases": 321.4,
+      "total_baseline_commitments": 587.0
+    },
+    "counterparty_breakdown_including_subsequent_events": [
+      {
+        "counterparty": "Google Cloud & Custom TPU Ecosystem",
+        "direct_take_or_pay_cloud_billions": 114.5,
+        "additional_tpu_capacity_midpoint_billions": 137.5,
+        "total_committed_billions": 252.0,
+        "window": "Apr 2026 - Jul 2033 (TPU cluster ramp 2028-2031)",
+        "contract_type": "Minimum take-or-pay cloud + TPU capacity leases"
+      },
+      {
+        "counterparty": "Broadcom / Apollo TPU Equipment Leases",
+        "direct_take_or_pay_cloud_billions": 0.0,
+        "additional_tpu_capacity_midpoint_billions": 161.2,
+        "total_committed_billions": 161.2,
+        "window": "2026 - 2034",
+        "contract_type": "Equipment and data-center infrastructure leases"
+      },
+      {
+        "counterparty": "SpaceX (xAI Infrastructure Subsidiary)",
+        "direct_take_or_pay_cloud_billions": 120.5,
+        "additional_tpu_capacity_midpoint_billions": 0.0,
+        "total_committed_billions": 120.5,
+        "window": "2026 - 2029",
+        "contract_type": "Accelerated compute cluster delivery agreement"
+      },
+      {
+        "counterparty": "Amazon Web Services (AWS)",
+        "direct_take_or_pay_cloud_billions": 110.0,
+        "additional_tpu_capacity_midpoint_billions": 0.0,
+        "total_committed_billions": 110.0,
+        "window": "2026 - 2033",
+        "contract_type": "Mandatory minimum cloud & Trainium/Inferentia spend"
+      },
+      {
+        "counterparty": "Microsoft Azure",
+        "direct_take_or_pay_cloud_billions": 44.9,
+        "additional_tpu_capacity_midpoint_billions": 0.0,
+        "total_committed_billions": 44.9,
+        "window": "Nov 2026 - May 2033",
+        "contract_type": "Binding take-or-pay regardless of actual usage"
+      }
+    ],
+    "estimated_annual_take_or_pay_schedule_billions": {
+      "2026": 22.0,
+      "2027": 52.0,
+      "2028": 86.0,
+      "2029": 108.0,
+      "2030": 115.0,
+      "2031_and_beyond": 305.6
+    }
+  }
+}

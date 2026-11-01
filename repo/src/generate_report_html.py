@@ -14,17 +14,23 @@ if str(SRC_DIR) not in sys.path:
 from labor_capex_model import LaborCapexModel
 from banking_contagion_model import BankingContagionModel
 from sp500_valuation_model import SP500ValuationModel
+from anthropic_s1_model import AnthropicS1Model
 
 
 def generate_full_html_report():
     labor_model = LaborCapexModel()
     banking_model = BankingContagionModel()
     sp500_model = SP500ValuationModel()
+    s1_model = AnthropicS1Model()
 
     # Compute baseline results
     labor_scenarios = labor_model.run_predefined_scenarios()
     banking_scenarios = banking_model.run_predefined_stress_levels()
     sp500_scenarios = sp500_model.run_predefined_crash_scenarios()
+    s1_recon = s1_model.reconcile_s1_unit_economics()
+    s1_comm = s1_model.get_commitments_summary()
+    s1_scenarios = s1_model.run_predefined_s1_scenarios()
+    s1_macro = s1_model.reconcile_with_macro_bubble_model(labor_model)
 
     occupations_data = labor_model.occupations_data["occupations"]
     debt_channels = banking_model.channels
@@ -891,9 +897,99 @@ def generate_full_html_report():
         </table>
     </div>
 
-    <!-- SECTION 6: SUBPRIME VS AI BUBBLE COMPARISON -->
+    <!-- SECTION 6: ANTHROPIC S-1 CASE STUDY & TAKE-OR-PAY WATERFALL -->
     <div class="section">
-        <h2>⚖️ 6. Comparative Matrix: 2008 Subprime Mortgage Crisis vs. 2026 AI Bubble</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 6px;">
+            <h2 style="margin-bottom: 0;">🔬 6. Frontier Lab Micro-Foundations: The Anthropic S-1 (<code>ANT</code>) &amp; The $688.6B Compute Guillotine</h2>
+            <a href="anthropic_s1_evaluation.html" style="color: #38bdf8; text-decoration: none; font-weight: 600; font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);">Open Standalone Anthropic S-1 Interactive Report &rarr;</a>
+        </div>
+        <p class="desc">
+            On October 26, 2026, <strong>Anthropic, PBC</strong> filed its Form S-1 registration statement (Nasdaq: <code>ANT</code>), revealing <strong>$16.29B in H1 2026 revenue</strong> ($46.22B Q2 annualized run-rate), <strong>~900% Net Revenue Retention</strong>, and a <strong>$131.7B liquid cash fortress</strong>. However, stripping away GAAP distortions reveals how hyperscalers have transferred hundreds of billions of dollars in hardware depreciation risk onto Anthropic via non-cancelable <strong>take-or-pay compute contracts ($587.0B baseline; $688.6B including Q3/Oct 2026 subsequent events)</strong>.
+        </p>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="label">H1 2026 Revenue (Q2 Run-Rate)</div>
+                <div class="value blue">$16.29B</div>
+                <div class="subtext">$11.56B in Q2 alone ($46.2B annualized)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">Accounting vs. True Compute Margin</div>
+                <div class="value orange">85.4% &rarr; 45.1%</div>
+                <div class="subtext">$9.74B pre-training R&amp;D excluded from COGS</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">Pre-IPO Liquid Cash Fortress</div>
+                <div class="value purple">$131.7B</div>
+                <div class="subtext">$112.4B cash + $19.3B marketable securities</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">Total Take-or-Pay &amp; Lease Commitments</div>
+                <div class="value red">$688.6B</div>
+                <div class="subtext">$587.0B as of June 30 + subsequent events</div>
+            </div>
+        </div>
+
+        <div class="chart-row">
+            <div class="chart-container">
+                <h3>Anthropic Liquidity Trajectory (2026–2030) vs. Mandatory Compute Outflow ($B)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="anthropicCashChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Counterparty Breakdown of $688.6B Take-or-Pay &amp; Lease Commitments ($B)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="anthropicCommitmentsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout danger">
+            <h4>Reconciling Anthropic's S-1 with the Macro Hyperscaler Payback Deficit</h4>
+            <p style="margin-bottom: 8px;">
+                At first glance, Anthropic's $46.22B Q2 annualized revenue run-rate appears to challenge our macro software revenue ceiling ($39.9B Base Case; $72.6B Aggressive Case). In reality, the S-1 <strong>proves our exact transmission mechanism</strong> across three structural dimensions:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; color: #cbd5e1; line-height: 1.55;">
+                <li><strong>1. The Accounting Margin Illusion (85.4% vs. 45.1%):</strong> Anthropic books only direct inference ($2.38B) in Cost of Revenue while classifying $9.74B of pre-training and research compute inside R&amp;D. Because frontier model weights become obsolete in 9–15 months, pre-training is recurring maintenance COGS. Including total compute ($8.95B in H1 2026), true compute-adjusted gross margin is <strong>45.1%</strong>—and another <strong>23.4% of revenue ($3.81B)</strong> is paid out in Sales &amp; Marketing (heavily cloud marketplace commissions on the 48% of revenue routed through AWS, Google Cloud, and Azure).</li>
+                <li><strong>2. Off-Balance-Sheet Risk Transfer ($86B/yr by 2028 = 42.4% of Big-4 Carrying Burden):</strong> Why did Amazon, Google, and Microsoft fund Anthropic's $131.7B cash pile? Because they immediately locked Anthropic into <strong>$688.6B of non-cancelable take-or-pay cloud and TPU/GPU leases</strong>. By 2028, Anthropic's scheduled compute outflow (~$86B/yr) absorbs <strong>42.4% of the Big-4 hyperscalers' entire 2026 annual carrying cost ($202.9B/yr)</strong>—effectively shifting hardware utilization risk from hyperscaler income statements onto Anthropic's cash reserve.</li>
+                <li><strong>3. Variable Token Revenue vs. Fixed 7-to-20 Year Leases:</strong> 80% of Anthropic's revenue ($13.06B in H1) is variable pay-per-token API consumption with zero multi-year floor, whereas its $688.6B infrastructure obligations are contractually fixed <em>"regardless of actual usage."</em></li>
+            </ul>
+        </div>
+
+        <!-- Anthropic S-1 Scenario Waterfall Table -->
+        <h3 style="font-size: 1.05rem; margin: 18px 0 8px 0; color: #f8fafc;">Anthropic Post-IPO Financial &amp; Valuation Scenarios (2026–2030 Waterfall)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario (Probability)</th>
+                    <th class="align-right">2028E Revenue</th>
+                    <th class="align-right">2028E Compute Outflow</th>
+                    <th class="align-right">2026–30 Deadweight Compute</th>
+                    <th class="align-right">2029E Cash Reserve</th>
+                    <th class="align-right">2028E Implied Market Cap</th>
+                    <th class="align-right">Return vs. $1.5T IPO</th>
+                    <th>Solvency &amp; Operational Verdict</th>
+                </tr>
+            </thead>
+            <tbody>
+                {"".join(f'''<tr>
+                    <td><strong>{sc["label"]} ({sc["probability"]:.0%})</strong></td>
+                    <td class="align-right">${sc["summary_metrics"]["revenue_2028_billions"]:.1f}B</td>
+                    <td class="align-right">${[r for r in sc["annual_projections"] if r["year"] == "2028"][0]["actual_compute_outflow_billions"]:.1f}B</td>
+                    <td class="align-right" style="color: var(--accent-orange);">${sc["summary_metrics"]["cumulative_deadweight_compute_2026_2030_billions"]:.1f}B</td>
+                    <td class="align-right" style="color: var(--accent-blue); font-weight: bold;">${sc["summary_metrics"]["ending_liquidity_2029_billions"]:.1f}B</td>
+                    <td class="align-right"><strong>${sc["summary_metrics"]["implied_2028_market_cap_billions"]:.1f}B</strong></td>
+                    <td class="align-right" style="color: {"#10b981" if sc["summary_metrics"]["implied_return_vs_1_5t_ipo_pct"] >= 0 else "#ef4444"}; font-weight: bold;">{sc["summary_metrics"]["implied_return_vs_1_5t_ipo_pct"]:+.1%}</td>
+                    <td>{sc["summary_metrics"]["solvency_status"]}</td>
+                </tr>''' for sc in s1_scenarios["scenarios"].values())}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 7: SUBPRIME VS AI BUBBLE COMPARISON -->
+    <div class="section">
+        <h2>⚖️ 7. Comparative Matrix: 2008 Subprime Mortgage Crisis vs. 2026 AI Bubble</h2>
         <table>
             <thead>
                 <tr>
@@ -1231,6 +1327,84 @@ def generate_full_html_report():
                 scales: {{
                     y: {{ min: 10.0, max: 13.0, grid: {{ color: '#2e3a52' }}, ticks: {{ color: '#94a3b8' }} }},
                     x: {{ ticks: {{ color: '#94a3b8' }} }}
+                }}
+            }}
+        }});
+
+        // Chart 7: Anthropic Liquidity & Take-or-Pay Outflow Trajectory (2026-2030)
+        new Chart(document.getElementById('anthropicCashChart'), {{
+            type: 'line',
+            data: {{
+                labels: ['2026E', '2027E', '2028E', '2029E', '2030E'],
+                datasets: [
+                    {{
+                        label: 'Bull Case Cash Reserve ($B)',
+                        data: {[r["ending_liquidity_billions"] for r in s1_scenarios["scenarios"]["agentic_singularity_bull"]["annual_projections"]]},
+                        borderColor: '#10b981',
+                        borderWidth: 2.5,
+                        pointRadius: 3,
+                        fill: false
+                    }},
+                    {{
+                        label: 'Base Case Cash Reserve ($B)',
+                        data: {[r["ending_liquidity_billions"] for r in s1_scenarios["scenarios"]["rational_enterprise_base"]["annual_projections"]]},
+                        borderColor: '#38bdf8',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        fill: false
+                    }},
+                    {{
+                        label: 'Bear Case Cash Reserve ($B)',
+                        data: {[r["ending_liquidity_billions"] for r in s1_scenarios["scenarios"]["ai_bubble_burst_bear"]["annual_projections"]]},
+                        borderColor: '#ef4444',
+                        borderWidth: 2.5,
+                        pointRadius: 3,
+                        fill: false
+                    }},
+                    {{
+                        label: 'Scheduled Take-or-Pay Compute Floor ($B/yr)',
+                        data: [22.0, 52.0, 86.0, 108.0, 115.0],
+                        borderColor: '#f97316',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    }}
+                ]
+            }},
+            options: {{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {{
+                    legend: {{ position: 'bottom', labels: {{ color: '#94a3b8', font: {{ size: 10 }}, boxWidth: 18 }} }}
+                }},
+                scales: {{
+                    y: {{ grid: {{ color: '#2e3a52' }}, ticks: {{ color: '#94a3b8', callback: function(v) {{ return '$' + v + 'B'; }} }} }},
+                    x: {{ ticks: {{ color: '#94a3b8' }} }}
+                }}
+            }}
+        }});
+
+        // Chart 8: Anthropic $688.6B Commitments by Counterparty
+        new Chart(document.getElementById('anthropicCommitmentsChart'), {{
+            type: 'bar',
+            data: {{
+                labels: ['Google Cloud + TPU', 'Broadcom / Apollo', 'SpaceX (xAI Infra)', 'Amazon AWS', 'Microsoft Azure'],
+                datasets: [{{
+                    label: 'Total Committed ($ Billions)',
+                    data: [252.0, 161.2, 120.5, 110.0, 44.9],
+                    backgroundColor: ['#38bdf8', '#a855f7', '#f97316', '#eab308', '#10b981'],
+                    borderRadius: 4
+                }}]
+            }},
+            options: {{
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {{ legend: {{ display: false }} }},
+                scales: {{
+                    x: {{ grid: {{ color: '#2e3a52' }}, ticks: {{ color: '#94a3b8', callback: function(v) {{ return '$' + v + 'B'; }} }} }},
+                    y: {{ ticks: {{ color: '#94a3b8' }} }}
                 }}
             }}
         }});

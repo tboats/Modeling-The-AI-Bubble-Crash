@@ -133,17 +133,40 @@ Where $\Delta P_c = \frac{\text{EPS}_{c,\text{new}} \cdot (\text{P/E})_{c,\text{
 
 ---
 
+### 2.5. Frontier Lab Micro-Foundations: Anthropic S-1 Take-or-Pay & Liquidity Stress-Test Engine
+
+To bridge macroeconomic labor/CapEx limits with audited frontier AI lab financials, the model incorporates the Form S-1 registration statement filed by **Anthropic, PBC** (Nasdaq: `ANT`) on October 26, 2026:
+
+#### 1. Accounting vs. Economic Gross Margin Reconciliation:
+Anthropic reports functional Cost of Revenue ($C_{\text{inference}}$) separately from pre-training and research compute embedded in R&D ($C_{\text{R\&D}}$). Because frontier model weights depreciate economically over 9–15 months, total compute expense ($C_{\text{compute\_total}}$) represents recurring economic cost of goods sold:
+$$\text{GM}_{\text{accounting}} = \frac{\text{Rev} - C_{\text{inference}}}{\text{Rev}} \quad (\approx 85.4\% \text{ in H1 2026})$$
+$$\text{GM}_{\text{compute\_adjusted}} = \frac{\text{Rev} - C_{\text{compute\_total}}}{\text{Rev}} \quad (\approx 45.1\% \text{ in H1 2026})$$
+
+#### 2. Off-Balance-Sheet Take-or-Pay Commitment Waterfall:
+As of June 30, 2026, Anthropic disclosed `\$265.6B` in fixed/minimum purchase obligations and `\$321.4B` in uncommenced compute/data-center leases (`\$587.0B` baseline), expanding to `~\$688.6B` including Q3/October 2026 subsequent events (Google Cloud/TPU, Broadcom/Apollo, SpaceX xAI, AWS, Microsoft Azure). For each projection year $t \in \{2026, \dots, 2030\}$:
+$$\text{Outflow}_{\text{compute}}(t) = \max\left( C_{\text{take\_or\_pay}}(t) \cdot (1 - \rho_{\text{restructure}}), \; \text{Rev}(t) \cdot \beta_{\text{compute}}(t) \right)$$
+Where $C_{\text{take\_or\_pay}}(t)$ is the scheduled minimum contractual commitment, $\rho_{\text{restructure}} \in [0, 0.50]$ is the emergency lease renegotiation haircut, and $\beta_{\text{compute}}(t)$ is organic compute intensity.
+
+#### 3. Liquidity Trajectory & Hyperscaler Risk Transfer:
+Starting from June 30, 2026 liquid reserves ($L_0 = \$131.7\text{B}$) plus net IPO proceeds ($I_{\text{IPO}}$), end-of-year liquidity evolves as:
+$$L(t) = L(t-1) + \text{FCF}(t)$$
+Where $\text{FCF}(t) = \text{Rev}(t) - \text{Outflow}_{\text{compute}}(t) - \text{Opex}_{\text{non\_compute}}(t)$. This quantifies how hyperscalers transfer hardware depreciation risk onto frontier labs via non-cancelable take-or-pay contracts, and how much of the `\$131.7B` cash reserve is recycled back to AWS, Google, Microsoft, and Broadcom.
+
+---
+
 ## 3. Implementation Stack & Data Artifacts
 
 1. **Core Simulation Engine (`repo/src/`)**:
    - `labor_capex_model.py`: Parametric labor demographic calculations, wage curves, and CapEx deficit formulas.
    - `banking_contagion_model.py`: Debt stack modeling, private credit loss waterfalls, and bank capital ratio stress-testing.
    - `sp500_valuation_model.py`: 4-cohort earnings impairment and multiple compression waterfall.
+   - `anthropic_s1_model.py`: Audited S-1 unit economics reconciliation, multi-year take-or-pay compute waterfall (2026–2030), and hyperscaler CapEx risk-transfer quantification.
 2. **Automated Test Suite (`repo/tests/`)**:
    - `test_labor_capex.py`: Mathematical invariants, edge cases ($\delta \to 0$, $\delta \to 1$).
    - `test_banking_contagion.py`: Capital ratio bounds, loss-given-default monotonicity.
    - `test_sp500_valuation.py`: Cohort weighting consistency, drawdown bounds check.
+   - `test_anthropic_s1.py`: S-1 accounting reconciliation, take-or-pay floor enforcement, and liquidity reserve trajectory assertions.
 3. **Interactive Simulator (`repo/src/dashboard.html`)**:
    - Self-contained, responsive HTML/JS/CSS application with dynamic sliders for displacement percentages, CapEx contraction %, bank loss absorption, and valuation multiples.
 4. **Analytical Research Synthesis (`docs/ai-bubble-burst-report.md`)**:
-   - Executive presentation of findings, stress-test outputs, historical comparisons (2000 Dot-Com, 2008 GFC), and systemic risk insights.
+   - Executive presentation of findings, stress-test outputs, Anthropic S-1 case study, historical comparisons (2000 Dot-Com, 2008 GFC), and systemic risk insights.
